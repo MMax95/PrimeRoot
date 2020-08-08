@@ -1,0 +1,3 @@
+/home/blackberry/Projects/PrimeRoot/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/blackberry/Projects/PrimeRoot/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/home/blackberry/Projects/PrimeRoot/cmake-build-debug/CMakeFiles/PrimeRoot.dir
