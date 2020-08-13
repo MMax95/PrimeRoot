@@ -4,6 +4,4 @@
 
 #include "../include/Memory_Functions.h"
 
-void allocateThreads(unsigned int thread_number){
-
-}
+unsigned int* allocateThreads(unsigned int thread_number);

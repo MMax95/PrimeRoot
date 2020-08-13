@@ -80,54 +80,54 @@ include CMakeFiles/PrimeRoot.dir/flags.make
 CMakeFiles/PrimeRoot.dir/main.cpp.o: CMakeFiles/PrimeRoot.dir/flags.make
 CMakeFiles/PrimeRoot.dir/main.cpp.o: ../main.cpp
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/blackberry/Projects/PrimeRoot/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/PrimeRoot.dir/main.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/PrimeRoot.dir/main.cpp.o -c /home/blackberry/Projects/PrimeRoot/main.cpp
+	/usr/bin/mpic++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/PrimeRoot.dir/main.cpp.o -c /home/blackberry/Projects/PrimeRoot/main.cpp
 
 CMakeFiles/PrimeRoot.dir/main.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/PrimeRoot.dir/main.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/blackberry/Projects/PrimeRoot/main.cpp > CMakeFiles/PrimeRoot.dir/main.cpp.i
+	/usr/bin/mpic++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/blackberry/Projects/PrimeRoot/main.cpp > CMakeFiles/PrimeRoot.dir/main.cpp.i
 
 CMakeFiles/PrimeRoot.dir/main.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/PrimeRoot.dir/main.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/blackberry/Projects/PrimeRoot/main.cpp -o CMakeFiles/PrimeRoot.dir/main.cpp.s
+	/usr/bin/mpic++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/blackberry/Projects/PrimeRoot/main.cpp -o CMakeFiles/PrimeRoot.dir/main.cpp.s
 
 CMakeFiles/PrimeRoot.dir/src/Step_Functions.cpp.o: CMakeFiles/PrimeRoot.dir/flags.make
 CMakeFiles/PrimeRoot.dir/src/Step_Functions.cpp.o: ../src/Step_Functions.cpp
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/blackberry/Projects/PrimeRoot/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/PrimeRoot.dir/src/Step_Functions.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/PrimeRoot.dir/src/Step_Functions.cpp.o -c /home/blackberry/Projects/PrimeRoot/src/Step_Functions.cpp
+	/usr/bin/mpic++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/PrimeRoot.dir/src/Step_Functions.cpp.o -c /home/blackberry/Projects/PrimeRoot/src/Step_Functions.cpp
 
 CMakeFiles/PrimeRoot.dir/src/Step_Functions.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/PrimeRoot.dir/src/Step_Functions.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/blackberry/Projects/PrimeRoot/src/Step_Functions.cpp > CMakeFiles/PrimeRoot.dir/src/Step_Functions.cpp.i
+	/usr/bin/mpic++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/blackberry/Projects/PrimeRoot/src/Step_Functions.cpp > CMakeFiles/PrimeRoot.dir/src/Step_Functions.cpp.i
 
 CMakeFiles/PrimeRoot.dir/src/Step_Functions.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/PrimeRoot.dir/src/Step_Functions.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/blackberry/Projects/PrimeRoot/src/Step_Functions.cpp -o CMakeFiles/PrimeRoot.dir/src/Step_Functions.cpp.s
+	/usr/bin/mpic++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/blackberry/Projects/PrimeRoot/src/Step_Functions.cpp -o CMakeFiles/PrimeRoot.dir/src/Step_Functions.cpp.s
 
 CMakeFiles/PrimeRoot.dir/src/Memory_Functions.cpp.o: CMakeFiles/PrimeRoot.dir/flags.make
 CMakeFiles/PrimeRoot.dir/src/Memory_Functions.cpp.o: ../src/Memory_Functions.cpp
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/blackberry/Projects/PrimeRoot/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/PrimeRoot.dir/src/Memory_Functions.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/PrimeRoot.dir/src/Memory_Functions.cpp.o -c /home/blackberry/Projects/PrimeRoot/src/Memory_Functions.cpp
+	/usr/bin/mpic++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/PrimeRoot.dir/src/Memory_Functions.cpp.o -c /home/blackberry/Projects/PrimeRoot/src/Memory_Functions.cpp
 
 CMakeFiles/PrimeRoot.dir/src/Memory_Functions.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/PrimeRoot.dir/src/Memory_Functions.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/blackberry/Projects/PrimeRoot/src/Memory_Functions.cpp > CMakeFiles/PrimeRoot.dir/src/Memory_Functions.cpp.i
+	/usr/bin/mpic++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/blackberry/Projects/PrimeRoot/src/Memory_Functions.cpp > CMakeFiles/PrimeRoot.dir/src/Memory_Functions.cpp.i
 
 CMakeFiles/PrimeRoot.dir/src/Memory_Functions.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/PrimeRoot.dir/src/Memory_Functions.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/blackberry/Projects/PrimeRoot/src/Memory_Functions.cpp -o CMakeFiles/PrimeRoot.dir/src/Memory_Functions.cpp.s
+	/usr/bin/mpic++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/blackberry/Projects/PrimeRoot/src/Memory_Functions.cpp -o CMakeFiles/PrimeRoot.dir/src/Memory_Functions.cpp.s
 
 CMakeFiles/PrimeRoot.dir/src/Iterator_Functions.cpp.o: CMakeFiles/PrimeRoot.dir/flags.make
 CMakeFiles/PrimeRoot.dir/src/Iterator_Functions.cpp.o: ../src/Iterator_Functions.cpp
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/blackberry/Projects/PrimeRoot/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/PrimeRoot.dir/src/Iterator_Functions.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/PrimeRoot.dir/src/Iterator_Functions.cpp.o -c /home/blackberry/Projects/PrimeRoot/src/Iterator_Functions.cpp
+	/usr/bin/mpic++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/PrimeRoot.dir/src/Iterator_Functions.cpp.o -c /home/blackberry/Projects/PrimeRoot/src/Iterator_Functions.cpp
 
 CMakeFiles/PrimeRoot.dir/src/Iterator_Functions.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/PrimeRoot.dir/src/Iterator_Functions.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/blackberry/Projects/PrimeRoot/src/Iterator_Functions.cpp > CMakeFiles/PrimeRoot.dir/src/Iterator_Functions.cpp.i
+	/usr/bin/mpic++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/blackberry/Projects/PrimeRoot/src/Iterator_Functions.cpp > CMakeFiles/PrimeRoot.dir/src/Iterator_Functions.cpp.i
 
 CMakeFiles/PrimeRoot.dir/src/Iterator_Functions.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/PrimeRoot.dir/src/Iterator_Functions.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/blackberry/Projects/PrimeRoot/src/Iterator_Functions.cpp -o CMakeFiles/PrimeRoot.dir/src/Iterator_Functions.cpp.s
+	/usr/bin/mpic++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/blackberry/Projects/PrimeRoot/src/Iterator_Functions.cpp -o CMakeFiles/PrimeRoot.dir/src/Iterator_Functions.cpp.s
 
 # Object files for target PrimeRoot
 PrimeRoot_OBJECTS = \
@@ -146,6 +146,7 @@ PrimeRoot: CMakeFiles/PrimeRoot.dir/src/Iterator_Functions.cpp.o
 PrimeRoot: CMakeFiles/PrimeRoot.dir/build.make
 PrimeRoot: /usr/lib/x86_64-linux-gnu/libgmp.a
 PrimeRoot: /usr/lib/x86_64-linux-gnu/libgmpxx.a
+PrimeRoot: /usr/lib/gcc/x86_64-linux-gnu/9/libgomp.so
 PrimeRoot: CMakeFiles/PrimeRoot.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/blackberry/Projects/PrimeRoot/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Linking CXX executable PrimeRoot"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/PrimeRoot.dir/link.txt --verbose=$(VERBOSE)

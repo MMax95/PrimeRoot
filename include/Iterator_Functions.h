@@ -6,23 +6,34 @@
 #define PRIMEROOT_ITERATOR_FUNCTIONS_H
 
 #endif //PRIMEROOT_ITERATOR_FUNCTIONS_H
-
+#include "Memory_Functions.h"
 #include "Step_Functions.h"
 
-void widthSource(mpz_int& x, mpz_int& y, mpz_int& number, mpz_int results[],
-              unsigned int position, unsigned int branchType);
+void checkResult    (mpz_int& x, mpz_int& y, mpz_int& number, mpz_int results[], unsigned int xy_size,
+              unsigned int number_size, unsigned int position, unsigned int branches[]);
 
-void widthIterate(mpz_int& x, mpz_int& y, mpz_int& number, mpz_int results[], unsigned int xy_size,
-                          unsigned int position, unsigned int branchType, unsigned int branches[]);
+void widthSource    (mpz_int& x, mpz_int& y, mpz_int& number, mpz_int results[], unsigned int xy_size,
+              unsigned int number_size, unsigned int position, unsigned int branches[],
+              unsigned int threadID, unsigned int* thread_ids);
 
-void widthOFI(mpz_int& x, mpz_int& y, mpz_int& number, mpz_int results[],
-              unsigned int position, unsigned int branchType);
+void widthIterate   (mpz_int& x, mpz_int& y, mpz_int& number, mpz_int results[], unsigned int xy_size,
+              unsigned int number_size, unsigned int position, unsigned int branches[]);
 
-void depthSource(mpz_int& x, mpz_int& y, mpz_int& number, mpz_int results[],
-              unsigned int position, unsigned int branchType);
+void widthOFI       (mpz_int& x, mpz_int& y, mpz_int& number, mpz_int results[], unsigned int xy_size,
+              unsigned int number_size, unsigned int position, unsigned int branches[]);
 
-void depthIterate(mpz_int& x, mpz_int& y, mpz_int& number, mpz_int results[], unsigned int xy_size,
-                          unsigned int position, unsigned int branchType, unsigned int branches[]);
+void depthSource    (mpz_int& x, mpz_int& y, mpz_int& number, mpz_int results[], unsigned int xy_size,
+              unsigned int number_size, unsigned int position, unsigned int branches[],
+              unsigned int threadID, unsigned int* thread_ids);
 
-void depthOFI(mpz_int& x, mpz_int& y, mpz_int& number, mpz_int results[],
-              unsigned int position, unsigned int branchType);
+void depthIterate   (mpz_int& x, mpz_int& y, mpz_int& number, mpz_int results[], unsigned int xy_size,
+              unsigned int number_size, unsigned int position, unsigned int branches[]);
+
+void depthOFI       (mpz_int& x, mpz_int& y, mpz_int& number, mpz_int results[], unsigned int xy_size,
+              unsigned int number_size, unsigned int position, unsigned int branches[]);
+
+void squareHunter();
+
+void brancher();
+
+void singleRunner();
