@@ -7,29 +7,18 @@
 
 #endif //PRIMEROOT_MEMORY_FUNCTIONS_H
 
-#include "Iterator_Functions.h"
-#include <omp.h>
 #include <pthread.h>
 
-struct Runner{
-    mpz_t number;
-    mpz_t x;
-    mpz_t y;
-    mpz_t diff;
-    mpz_t results[MAX_XY_SIZE + 1];
 
-    unsigned int branches[MAX_N_SIZE];
+#define MAX_NUMBER_LENGTH 512
+#define MAX_TREE_DEPTH 256
 
-    unsigned int number_size;
-    unsigned int xy_size;
-};
 
-void allocateThreads(unsigned int thread_number);
-void generateNode(mpz_t &result, unsigned int position);
-void generateTree(mpz_t results[MAX_XY_SIZE], unsigned int branches[MAX_XY_SIZE],
-                  mpz_t& x, mpz_t& y, mpz_t& diff,
-                  unsigned int xy_size, unsigned int number_size);
-void cloneThread(int thread_id);
+unsigned int*   allocateThreads    (unsigned int thread_number);
+void            generateNode       (unsigned int position);
+void            generateTree       (unsigned int thread_id);
+unsigned int    findNewNode        (unsigned int thread_ids[]);
+void            cloneThread        (unsigned int source_thread, unsigned int destination_thread,
+                                    unsigned int position);
 
 /// void callGPU(); - to be implemented as a check
-

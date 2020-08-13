@@ -146,6 +146,7 @@ PrimeRoot: CMakeFiles/PrimeRoot.dir/src/Iterator_Functions.cpp.o
 PrimeRoot: CMakeFiles/PrimeRoot.dir/build.make
 PrimeRoot: /usr/lib/x86_64-linux-gnu/libgmp.a
 PrimeRoot: /usr/lib/x86_64-linux-gnu/libgmpxx.a
+PrimeRoot: /usr/lib/gcc/x86_64-linux-gnu/9/libgomp.so
 PrimeRoot: CMakeFiles/PrimeRoot.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/blackberry/Projects/PrimeRoot/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Linking CXX executable PrimeRoot"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/PrimeRoot.dir/link.txt --verbose=$(VERBOSE)

@@ -1,71 +1,47 @@
 #include <iostream>
-#include "include/Memory_Functions.h"
+#include "include/Iterator_Functions.h"
 
+#include <omp.h>
+#include <boost/numeric/odeint.hpp>
+#include <boost/numeric/odeint/external/openmp/openmp.hpp>
+#include <boost/numeric/odeint/external/mpi/mpi.hpp>
+#include <mpi-ext.h>
 int main(int argc, char* argv[])
 {
     using namespace boost::multiprecision;
+    mpz_int number;
+    unsigned int thread_number;
+    unsigned int* threads;
 
-    bool use_struct = 1;
-    if(use_struct){
-        Runner thread_1;
+    MPI_Init(&argc, &argv);
 
-        char number_string[] = "123123112154177777";
-        unsigned int base = 10;
-        mpz_init_set_str(thread_1.number, number_string, base);
-        thread_1.x;
-        thread_1.y;
-        thread_1.results[MAX_XY_SIZE + 1];
-
-
-        thread_1.branches[MAX_N_SIZE];
-
-        thread_1.number_size = mpn_sizeinbase(thread_1.number->_mp_d, thread_1.number->_mp_size, 2);
-        thread_1.xy_size = thread_1.number_size / 2 + 1;
-        unsigned int starting_position = 1;
-
-        std::cout << "Number size:" << thread_1.number_size << "\n";
-        std::cout << "XY size: " << thread_1.xy_size << "\n";
-
-        generateTree(thread_1.results, thread_1.branches, thread_1.x, thread_1.y,
-                     thread_1.diff, thread_1.xy_size, thread_1.number_size);
-
-        clock_t start, end;
-        double cpu_time_used;
-        start = clock();
-        widthIterate(thread_1.x, thread_1.y, thread_1.diff, thread_1.number, thread_1.results,
-                     thread_1.xy_size, starting_position, thread_1.branches, thread_1.number_size);
-        end = clock();
-        cpu_time_used = ((double) (end - start)) / CLOCKS_PER_SEC;
-        std::cout << cpu_time_used << "seconds for " << thread_1.number_size << "bits" << std::endl;
-    }else{
-        char number_string[] = "123123112154177777";
-        unsigned int base = 10;
-        mpz_t number;
-        mpz_init_set_str(number, number_string, base);
-        mpz_t x;
-        mpz_t y;
-        mpz_t diff;
-        mpz_t results[MAX_XY_SIZE + 1];
-
-        unsigned int branches[MAX_N_SIZE];
-
-        unsigned int number_size = mpn_sizeinbase(number->_mp_d, number->_mp_size, 2);
-        unsigned int xy_size = number_size / 2 + 1;
-        unsigned int starting_position = 1;
-
-        std::cout << "Number size:" << number_size << "\n";
-        std::cout << "XY size: " << xy_size << "\n";
-
-        generateTree(results, branches, x, y, diff, xy_size, number_size);
-
-        clock_t start, end;
-        double cpu_time_used;
-        start = clock();
-        widthIterate(x, y, diff, number, results, xy_size, starting_position, branches, number_size);
-        end = clock();
-        cpu_time_used = ((double) (end - start)) / CLOCKS_PER_SEC;
-        std::cout << cpu_time_used << "seconds for " << number_size << "bits" << std::endl;
-
+    int rank;
+    MPI_Comm_rank(MPI_COMM_WORLD, &rank);
+    if (rank == 0) {
+        int value = 17;
+        int result = MPI_Send(&value, 1, MPI_INT, 1, 0, MPI_COMM_WORLD);
+        if (result == MPI_SUCCESS)
+            std::cout << "Rank 0 OK!" << std::endl;
+    } else if (rank == 1) {
+        int value;
+        int result = MPI_Recv(&value, 1, MPI_INT, 0, 0, MPI_COMM_WORLD,MPI_STATUS_IGNORE);
+        if (result == MPI_SUCCESS && value == 17)
+            std::cout << "Rank 1 OK!" << std::endl;
+    } else if (rank == 2) {
+        std::cout << "This is the 3rd thread" << std::endl;
     }
+    std::cout << "This operation is done by thread " << rank << std::endl;
+    int MPIX_Query_cuda_support(void);
+    std::cout << "CUDA Support: " << MPIX_Query_cuda_support << std::endl;
+
+    int world_size;
+    MPI_Comm_size(MPI_COMM_WORLD, &world_size);
+    std::cout << "Comm_size: " << world_size << std::endl;
+
+    MPI_Finalize();
+
+
+
     return 0;
+
 }

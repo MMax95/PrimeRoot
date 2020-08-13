@@ -9,9 +9,6 @@
 
 #include <boost/multiprecision/gmp.hpp>
 
-#define MAX_N_SIZE 1024
-#define MAX_XY_SIZE MAX_N_SIZE / 2 + 1
-
 using namespace boost::multiprecision;
 
 ///Constant variables
@@ -35,15 +32,9 @@ enum StrategyType{
 };
 
 ///Single functions
-void         getNodeType(const mpz_t& number, const mpz_t& result, unsigned int position, unsigned int branches[MAX_N_SIZE]);
-void         makeResult (mpz_t& result, const mpz_t& previousResult, unsigned int position, unsigned int branchType, mpz_t& x, mpz_t& y, mpz_t& diff);
+void         getNodeType(const mpz_int& number, const mpz_int& result, unsigned int position, unsigned int branches[]);
+void         makeResult(mpz_int& result, const mpz_int& previousResult, unsigned int position, unsigned int branchType, const mpz_int& x, const mpz_int& y);
 
 ///Composite functions
-void         setXY      (mpz_t& x, mpz_t& y, unsigned int position, unsigned int branchType);
-void         resetXY    (mpz_t& x, mpz_t& y, unsigned int position);
-
-/////Test functions
-//unsigned int test_getNodeType(mpz_int number, mpz_int result, bool verbose);
-//unsigned int test_setXY(mpz_int x, mpz_int y, bool verbose);
-//unsigned int test_resetXY(mpz_int x,mpz_int y, bool verbose);
-//unsigned int test_makeResult(mpz_int result, mpz_int previousResult, mpz_int x, mpz_int y, bool verbose);
+void         setXY(mpz_int& x, mpz_int& y, unsigned int position, unsigned int branchType);
+void         resetXY(mpz_int& x, mpz_int& y, unsigned int position);
