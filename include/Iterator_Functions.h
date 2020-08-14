@@ -9,20 +9,14 @@
 
 #include "Step_Functions.h"
 
-void widthSource(mpz_int& x, mpz_int& y, mpz_int& number, mpz_int results[],
-              unsigned int position, unsigned int branchType);
+void widthIterate(mpz_int& x, mpz_int& y, mpz_int& number, mpz_int results[MAX_XY_SIZE], unsigned int xy_size,
+                  unsigned int number_size, unsigned int position, unsigned int branches[MAX_N_SIZE]);
 
-void widthIterate(mpz_int& x, mpz_int& y, mpz_int& number, mpz_int results[], unsigned int xy_size,
-                          unsigned int position, unsigned int branchType, unsigned int branches[]);
+void depthIterate(mpz_int& x, mpz_int& y, mpz_int& number, mpz_int results[MAX_XY_SIZE], unsigned int xy_size,
+                  unsigned int number_size, unsigned int position, unsigned int branches[MAX_N_SIZE]);
 
-void widthOFI(mpz_int& x, mpz_int& y, mpz_int& number, mpz_int results[],
-              unsigned int position, unsigned int branchType);
+void OFI(mpz_int& x, mpz_int& y, mpz_int& number, mpz_int results[MAX_XY_SIZE], unsigned int xy_size,
+         unsigned int number_size, unsigned int position, unsigned int branches[MAX_N_SIZE]);
 
-void depthSource(mpz_int& x, mpz_int& y, mpz_int& number, mpz_int results[],
-              unsigned int position, unsigned int branchType);
-
-void depthIterate(mpz_int& x, mpz_int& y, mpz_int& number, mpz_int results[], unsigned int xy_size,
-                          unsigned int position, unsigned int branchType, unsigned int branches[]);
-
-void depthOFI(mpz_int& x, mpz_int& y, mpz_int& number, mpz_int results[],
-              unsigned int position, unsigned int branchType);
+void checkResult(mpz_int& x, mpz_int& y, mpz_int& number, mpz_int results[MAX_XY_SIZE], unsigned int xy_size,
+                 unsigned int number_size, unsigned int position, unsigned int branches[MAX_N_SIZE]);
