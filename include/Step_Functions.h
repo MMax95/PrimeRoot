@@ -35,8 +35,8 @@ enum StrategyType{
 };
 
 ///Single functions
-unsigned int getNodeType(const mpz_int& number, const mpz_int& result, unsigned int position, unsigned int branches[MAX_N_SIZE]);
-void         makeResult(mpz_int& result, const mpz_int& previousResult, unsigned int position, unsigned int branchType, const mpz_int& x, const mpz_int& y);
+void         getNodeType(const mpz_int& number, const mpz_int& result, unsigned int position, unsigned int branches[MAX_N_SIZE]);
+void         makeResult(mpz_int& result, const mpz_int& previousResult, unsigned int position, unsigned int branchType, mpz_int& x, mpz_int& y, mpz_int& diff);
 
 ///Composite functions
 void         setXY(mpz_int& x, mpz_int& y, unsigned int position, unsigned int branchType);
