@@ -12,8 +12,10 @@
 #include <pthread.h>
 
 void allocateThreads(unsigned int thread_number);
-void generateNode(int position);
-void generateTree(int thread_id);
+void generateNode(mpz_int &result, unsigned int position);
+void generateTree(mpz_int results[MAX_XY_SIZE], unsigned int branches[MAX_XY_SIZE],
+                  mpz_int& x, mpz_int& y,
+                  unsigned int xy_size, unsigned int number_size);
 void cloneThread(int thread_id);
 
 /// void callGPU(); - to be implemented as a check

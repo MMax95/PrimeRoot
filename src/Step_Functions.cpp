@@ -9,8 +9,10 @@ unsigned int getNodeType(const mpz_int& number, const mpz_int& result, unsigned 
 {
     if(bit_test(number, position) ^ bit_test(result, position))
     {
+        branches[position] = 0b11001;
         return 0b11100;
     }else{
+        branches[position] = 0b11100;
         return 0b11001;
     }
     ///The operations can and should be avoided by setting return branch types when launching the thread
@@ -39,15 +41,28 @@ void         makeResult(mpz_int& result, const mpz_int& previousResult, unsigned
 ///Composite functions
 void         setXY(mpz_int& x, mpz_int& y, unsigned int position, unsigned int branchType)
 {
-    if(branchType & 0b01){
-        bit_set(x, position);
-//        std::cout << x << std::endl;
+    switch (branchType & 0b11)
+    {
+        case 0b00:
+            bit_unset   (x, position);
+            bit_unset   (y, position);
+            break;
+        case 0b01:
+            bit_set     (x, position);
+            bit_unset   (y, position);
+            break;
+        case 0b10:
+            bit_unset   (x, position);
+            bit_set     (y, position);
+            break;
+        case 0b11:
+            bit_set     (x, position);
+            bit_set     (y, position);
+            break;
+
     }
 
-    if(branchType & 0b10){
-        bit_set(y, position);
-//        std::cout << y << std::endl;
-    }
+
 
 }
 void         resetXY(mpz_int& x, mpz_int& y, unsigned int position)
