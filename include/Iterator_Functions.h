@@ -9,14 +9,14 @@
 
 #include "Step_Functions.h"
 
-void   widthIterate (mpz_int& x, mpz_int& y, mpz_int& diff, mpz_int& number, mpz_int results[MAX_XY_SIZE], const unsigned int xy_size,
+void   widthIterate (mpz_t& x, mpz_t& y, mpz_t& diff, mpz_t& number, mpz_t results[MAX_XY_SIZE], const unsigned int xy_size,
                const unsigned int position, unsigned int branches[MAX_N_SIZE], const unsigned int number_size);
 
-void   depthIterate (mpz_int& x, mpz_int& y, mpz_int& diff, mpz_int& number, mpz_int results[MAX_XY_SIZE], const unsigned int xy_size,
+void   depthIterate (mpz_t& x, mpz_t& y, mpz_t& diff, mpz_t& number, mpz_t results[MAX_XY_SIZE], const unsigned int xy_size,
                const unsigned int position, unsigned int branches[MAX_N_SIZE], const unsigned int number_size);
 
-void            OFI (mpz_int& x, mpz_int& y, mpz_int& diff, mpz_int& number, mpz_int results[MAX_XY_SIZE], const unsigned int xy_size,
+void            OFI (mpz_t& x, mpz_t& y, mpz_t& diff, mpz_t& number, mpz_t results[MAX_XY_SIZE], const unsigned int xy_size,
                      unsigned int position, unsigned int branches[MAX_N_SIZE]                          );
 
-void    checkResult (mpz_int& x, mpz_int& y, mpz_int& diff, mpz_int& number, mpz_int results[MAX_XY_SIZE], const unsigned int xy_size,
+void    checkResult (mpz_t& x, mpz_t& y, mpz_t& diff, mpz_t& number, mpz_t results[MAX_XY_SIZE], const unsigned int xy_size,
                const unsigned int position, unsigned int branches[MAX_N_SIZE], const unsigned int number_size);

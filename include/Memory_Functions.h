@@ -12,12 +12,11 @@
 #include <pthread.h>
 
 struct Runner{
-    mpz_int number;
-    mpz_int previousResult;
-    mpz_int x;
-    mpz_int y;
-    mpz_int diff;
-    mpz_int results[MAX_XY_SIZE + 1];
+    mpz_t number;
+    mpz_t x;
+    mpz_t y;
+    mpz_t diff;
+    mpz_t results[MAX_XY_SIZE + 1];
 
     unsigned int branches[MAX_N_SIZE];
 
@@ -26,9 +25,9 @@ struct Runner{
 };
 
 void allocateThreads(unsigned int thread_number);
-void generateNode(mpz_int &result, unsigned int position);
-void generateTree(mpz_int results[MAX_XY_SIZE], unsigned int branches[MAX_XY_SIZE],
-                  mpz_int& x, mpz_int& y, mpz_int& diff,
+void generateNode(mpz_t &result, unsigned int position);
+void generateTree(mpz_t results[MAX_XY_SIZE], unsigned int branches[MAX_XY_SIZE],
+                  mpz_t& x, mpz_t& y, mpz_t& diff,
                   unsigned int xy_size, unsigned int number_size);
 void cloneThread(int thread_id);
 

@@ -3,8 +3,14 @@
 //
 
 #include "../include/Iterator_Functions.h"
+char* buffer;
+char *print_binary(mpz_t& number)                                                                       /// returns a string with the number in binary
+{
 
-void widthIterate(mpz_int& x, mpz_int& y, mpz_int& diff, mpz_int& number, mpz_int results[MAX_XY_SIZE], unsigned int xy_size,
+    return mpz_get_str(buffer, 10, number);
+}
+
+void widthIterate(mpz_t& x, mpz_t& y, mpz_t& diff, mpz_t& number, mpz_t results[MAX_XY_SIZE], unsigned int xy_size,
                   const unsigned int position, unsigned int branches[MAX_N_SIZE], unsigned int number_size)
 
 {
@@ -12,7 +18,7 @@ void widthIterate(mpz_int& x, mpz_int& y, mpz_int& diff, mpz_int& number, mpz_in
         unsigned int strategy = 11001001; ///to be introduced as parameter
 
         getNodeType(number, results[position - 1], position, branches);
-//        std::cout << "Width step: " << position << " branch " << branches[position] << "\n"
+//        std::cout << "Width step: " << position << " branch " << branches[position] << "\n";
 
         if ((branches[position] == equalLeft) ||
             (branches[position] == equalRight))
@@ -49,12 +55,12 @@ void widthIterate(mpz_int& x, mpz_int& y, mpz_int& diff, mpz_int& number, mpz_in
     }
 }
 
-void depthIterate(mpz_int& x, mpz_int& y, mpz_int& diff, mpz_int& number, mpz_int results[MAX_XY_SIZE], unsigned int xy_size,
+void depthIterate(mpz_t& x, mpz_t& y, mpz_t& diff, mpz_t& number, mpz_t results[MAX_XY_SIZE], unsigned int xy_size,
                   const unsigned int position, unsigned int branches[MAX_N_SIZE], unsigned int number_size)
 {
     if (position < xy_size)                                                                            /// checks if the position is in generation range
     {
-//        std::cout << "\nDepth step: " << position << " branch " << branches[position] << "\n"
+//        std::cout << "\nDepth step: " << position << " branch " << branches[position] << "\n";
         makeResult(results[position], results[position - 1],
                   position, branches[position], x, y, diff);
 
@@ -77,14 +83,14 @@ void depthIterate(mpz_int& x, mpz_int& y, mpz_int& diff, mpz_int& number, mpz_in
     }
 }
 
-void OFI(mpz_int& x, mpz_int& y, mpz_int& diff, mpz_int& number, mpz_int results[MAX_XY_SIZE],
+void OFI(mpz_t& x, mpz_t& y, mpz_t& diff, mpz_t& number, mpz_t results[MAX_XY_SIZE],
          unsigned int xy_size, unsigned int position, unsigned int branches[MAX_N_SIZE])
 {
-    ///results[position] = results[position - 1];/// - converted to backend mpz_t
-    mpz_set(results[position].backend().data(), results[position - 1].backend().data());
 
-//    std::cout << "OFI accessed with position " << position << ", result "<< results[xy_size] << "\n";
-    unsigned int steps = xy_size - msb(y);                                                    /// calculates how many bits are necessary for len(x) + len(y) = len(n)
+//    std::cout << "OFI accessed with position " << position << ", result "<< print_binary(results[xy_size]) << "\n";
+    unsigned int steps = xy_size - mpz_sizeinbase(y, 2);
+    ///results[position] = results[position - 1];/// - converted to backend mpz_t
+    mpz_set(results[position], results[position - 1]);
 
     for (int i = 0; i < steps; ++i)
     {
@@ -93,54 +99,56 @@ void OFI(mpz_int& x, mpz_int& y, mpz_int& diff, mpz_int& number, mpz_int results
         if ((branches[position] & 0b11) == 0b01)
         {
             ///results[xy_size] += (y << position);/// - converted to mpz
-            mpz_mul_2exp(diff.backend().data(), y.backend().data(), position);
-            mpz_add(results[xy_size].backend().data(), results[xy_size].backend().data(),
-                    diff.backend().data());
+            mpz_mul_2exp(diff, y, position);
+            mpz_add(results[xy_size], results[xy_size], diff);
             ///bit_set(x, position);/// - converted to backend mpz
-            mpz_setbit(x.backend().data(), position);
+            mpz_setbit(x, position);
         }
 //        std::cout << "X: " << x << " Y: " << y << "\n";
 //        std::cout << "Result: " << results[xy_size] << "\n\n";
             ++position;
+
             getNodeType(results[xy_size], number, position, branches);
+
     }
 
     ///if (number == results[xy_size])/// - converted to backend mpz
-    if (mpz_cmp(number.backend().data(), results[xy_size].backend().data()) == 0)
+    if (mpz_cmp(number, results[xy_size]) == 0)
     {
-        std::cout << x << " * " << y << " = " << results[xy_size] << "\n";
+
+        std::cout << print_binary(x) << " * " << print_binary(y) << " = " << print_binary(results[xy_size]) << std::endl;
     }
 
     for (int i = 0; i <= steps; ++i)
     {
         --position;
         ///bit_unset(x, position);/// - converted to mpz
-        mpz_clrbit(x.backend().data(), position);
+        mpz_clrbit(x, position);
     }
     ///results[xy_size] = 1;/// - converted to mpz
-    mpz_set_ui(results[xy_size].backend().data(), 1);
-    mpz_set_ui(diff.backend().data(), 1);
+    mpz_set_ui(results[xy_size], 1);
+    mpz_set_ui(diff, 1);
 }
 
-void checkResult(mpz_int& x, mpz_int& y, mpz_int& diff, mpz_int& number, mpz_int results[MAX_XY_SIZE], unsigned int xy_size,
+void checkResult(mpz_t& x, mpz_t& y, mpz_t& diff, mpz_t& number, mpz_t results[MAX_XY_SIZE], unsigned int xy_size,
                  const unsigned int position, unsigned int branches[MAX_N_SIZE], unsigned int number_size)
 {
 //    std::cout << "checkResult: " << position << "\n"
     ///if ((bit_test(results[position - 1], number_size)) || (bit_test(results[position - 1], number_size + 1)))/// - converted to mpz
-    if((mpz_tstbit(results[position - 1].backend().data(), number_size) == 1) ||
-       (mpz_tstbit(results[position - 1].backend().data(), number_size + 1) == 1))
+    if((mpz_tstbit(results[position - 1], number_size) == 1) ||
+       (mpz_tstbit(results[position - 1], number_size + 1) == 1))
     {
 //        std::cout << "Overflow bit triggered on number " << results[position - 1];
         return;                                                                                        /// comparing 2 bits instead of the whole number, allows for cheap branch pruning
     }
 
     ///if (results[position - 1] == number) /// - converted to mpz
-    int compared_result = mpn_cmp(results[position - 1].backend().data()->_mp_d,
-                                  number.backend().data()->_mp_d,
-                                  number.backend().data()->_mp_size);
+    int compared_result = mpn_cmp(results[position - 1]->_mp_d,
+                                  number->_mp_d,
+                                  number->_mp_size);
     if (compared_result == 0)
     {
-        std::cout << "Result_found " << x << " * " << y << " = " << results[position - 1];
+        std::cout << "Result_found " << print_binary(x) << " * " << print_binary(y) << " = " << print_binary(results[position - 1]);
         return;
 
     ///} else if (results[position - 1] > number)/// - converted to mpz

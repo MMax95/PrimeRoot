@@ -4,15 +4,15 @@
 
 #include "../include/Memory_Functions.h"
 
-void generateNode(mpz_int &result, unsigned int position)
+void generateNode(mpz_t& result, unsigned int position)
 
 {
-    mpz_init_set_d(result.backend().data(), 1);
-    mpz_realloc2(result.backend().data(), (position * 2 + 1));
+    mpz_init_set_d(result, 1);
+    mpz_realloc2(result, (position * 2 + 1));
 }
 
-void generateTree(mpz_int results[MAX_XY_SIZE], unsigned int branches[MAX_XY_SIZE],
-                  mpz_int& x, mpz_int& y, mpz_int& diff,
+void generateTree(mpz_t results[MAX_XY_SIZE], unsigned int branches[MAX_XY_SIZE],
+                  mpz_t& x, mpz_t& y, mpz_t& diff,
                   unsigned int xy_size, unsigned int number_size)
 {
     {
@@ -26,16 +26,16 @@ void generateTree(mpz_int results[MAX_XY_SIZE], unsigned int branches[MAX_XY_SIZ
             branches[j] = 0;
         }
 
-        mpz_init_set_d(x.backend().data(), 1);                                                                              /// initializes X variable with 1
-        mpz_init_set_d(y.backend().data(), 1);
-        mpz_init_set_d(diff.backend().data(), 1);
-        mpz_init_set_d(results[xy_size].backend().data(), 1);
+        mpz_init_set_d(x, 1);                                                                              /// initializes X variable with 1
+        mpz_init_set_d(y, 1);
+        mpz_init_set_d(diff, 1);
+        mpz_init_set_d(results[xy_size], 1);
 
-        mpz_realloc2(x.backend().data(), number_size);
-        mpz_realloc2(y.backend().data(), number_size);
-        mpz_realloc2(diff.backend().data(), number_size);
-        mpz_realloc2(results[xy_size].backend().data(), number_size);
+        mpz_realloc(x, number_size);                                                                 /// allocates space for n bits
+        mpz_realloc(y, number_size);                                                                 /// allocates space for n bits
+        mpz_realloc(diff, number_size);                                                                 /// allocates space for n
+        mpz_realloc(results[xy_size], number_size);
 
-        gmp_printf("\nTree generated for depth %d\n", xy_size);
+        std::cout << "\nTree generated for depth " << xy_size << "\n";
     }
 }
