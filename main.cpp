@@ -73,7 +73,7 @@ int main(int argc, char* argv[])
         }
 
 
-
+        std::cout << "Default L-L strategy selected" << std::endl;
         clock_t start, end;
         double cpu_time_used;
         start = clock();

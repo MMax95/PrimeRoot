@@ -6,27 +6,11 @@
 
 #IncludeRegexTransform: 
 
-/home/blackberry/Projects/PrimeRoot/include/Iterator_Functions.h
-Step_Functions.h
-/home/blackberry/Projects/PrimeRoot/include/Step_Functions.h
-
-/home/blackberry/Projects/PrimeRoot/include/Memory_Functions.h
-Iterator_Functions.h
-/home/blackberry/Projects/PrimeRoot/include/Iterator_Functions.h
-omp.h
--
-pthread.h
--
-
 /home/blackberry/Projects/PrimeRoot/include/Step_Functions.h
 boost/multiprecision/gmp.hpp
 -
 
-/home/blackberry/Projects/PrimeRoot/main.cpp
-iostream
--
-string
--
-include/Memory_Functions.h
-/home/blackberry/Projects/PrimeRoot/include/Memory_Functions.h
+/home/blackberry/Projects/PrimeRoot/src/Step_Functions.cpp
+../include/Step_Functions.h
+/home/blackberry/Projects/PrimeRoot/include/Step_Functions.h
 
