@@ -7,11 +7,12 @@ CMakeFiles/PrimeRoot.dir/main.cpp.o: ../include/Step_Functions.h
 CMakeFiles/PrimeRoot.dir/main.cpp.o: ../main.cpp
 
 CMakeFiles/PrimeRoot.dir/src/Iterator_Functions.cpp.o: ../include/Iterator_Functions.h
-CMakeFiles/PrimeRoot.dir/src/Iterator_Functions.cpp.o: ../include/Memory_Functions.h
 CMakeFiles/PrimeRoot.dir/src/Iterator_Functions.cpp.o: ../include/Step_Functions.h
 CMakeFiles/PrimeRoot.dir/src/Iterator_Functions.cpp.o: ../src/Iterator_Functions.cpp
 
+CMakeFiles/PrimeRoot.dir/src/Memory_Functions.cpp.o: ../include/Iterator_Functions.h
 CMakeFiles/PrimeRoot.dir/src/Memory_Functions.cpp.o: ../include/Memory_Functions.h
+CMakeFiles/PrimeRoot.dir/src/Memory_Functions.cpp.o: ../include/Step_Functions.h
 CMakeFiles/PrimeRoot.dir/src/Memory_Functions.cpp.o: ../src/Memory_Functions.cpp
 
 CMakeFiles/PrimeRoot.dir/src/Step_Functions.cpp.o: ../include/Step_Functions.h

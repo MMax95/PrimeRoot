@@ -6,34 +6,33 @@
 #define PRIMEROOT_ITERATOR_FUNCTIONS_H
 
 #endif //PRIMEROOT_ITERATOR_FUNCTIONS_H
-#include "Memory_Functions.h"
+
 #include "Step_Functions.h"
 
-void checkResult    (mpz_int& x, mpz_int& y, mpz_int& number, mpz_int results[], unsigned int xy_size,
-              unsigned int number_size, unsigned int position, unsigned int branches[]);
+void   widthIterate (mpz_t& x, mpz_t& y, mpz_t& diff, mpz_t& number, mpz_t results[MAX_XY_SIZE], const unsigned int xy_size,
+                     const unsigned int position, unsigned int branches[MAX_N_SIZE], const unsigned int number_size);
+void   widthIterateLL (mpz_t& x, mpz_t& y, mpz_t& diff, mpz_t& number, mpz_t results[MAX_XY_SIZE], const unsigned int xy_size,
+                       const unsigned int position, unsigned int branches[MAX_N_SIZE], const unsigned int number_size);
+void   widthIterateLR (mpz_t& x, mpz_t& y, mpz_t& diff, mpz_t& number, mpz_t results[MAX_XY_SIZE], const unsigned int xy_size,
+                       const unsigned int position, unsigned int branches[MAX_N_SIZE], const unsigned int number_size);
+void   widthIterateRL (mpz_t& x, mpz_t& y, mpz_t& diff, mpz_t& number, mpz_t results[MAX_XY_SIZE], const unsigned int xy_size,
+                       const unsigned int position, unsigned int branches[MAX_N_SIZE], const unsigned int number_size);
+void   widthIterateRR (mpz_t& x, mpz_t& y, mpz_t& diff, mpz_t& number, mpz_t results[MAX_XY_SIZE], const unsigned int xy_size,
+                       const unsigned int position, unsigned int branches[MAX_N_SIZE], const unsigned int number_size);
 
-void widthSource    (mpz_int& x, mpz_int& y, mpz_int& number, mpz_int results[], unsigned int xy_size,
-              unsigned int number_size, unsigned int position, unsigned int branches[],
-              unsigned int threadID, unsigned int* thread_ids);
+void   depthIterate (mpz_t& x, mpz_t& y, mpz_t& diff, mpz_t& number, mpz_t results[MAX_XY_SIZE], const unsigned int xy_size,
+                     const unsigned int position, unsigned int branches[MAX_N_SIZE], const unsigned int number_size);
+void   depthIterateLL (mpz_t& x, mpz_t& y, mpz_t& diff, mpz_t& number, mpz_t results[MAX_XY_SIZE], const unsigned int xy_size,
+                       const unsigned int position, unsigned int branches[MAX_N_SIZE], const unsigned int number_size);
+void   depthIterateLR (mpz_t& x, mpz_t& y, mpz_t& diff, mpz_t& number, mpz_t results[MAX_XY_SIZE], const unsigned int xy_size,
+                       const unsigned int position, unsigned int branches[MAX_N_SIZE], const unsigned int number_size);
+void   depthIterateRL (mpz_t& x, mpz_t& y, mpz_t& diff, mpz_t& number, mpz_t results[MAX_XY_SIZE], const unsigned int xy_size,
+                       const unsigned int position, unsigned int branches[MAX_N_SIZE], const unsigned int number_size);
+void   depthIterateRR (mpz_t& x, mpz_t& y, mpz_t& diff, mpz_t& number, mpz_t results[MAX_XY_SIZE], const unsigned int xy_size,
+                       const unsigned int position, unsigned int branches[MAX_N_SIZE], const unsigned int number_size);
 
-void widthIterate   (mpz_int& x, mpz_int& y, mpz_int& number, mpz_int results[], unsigned int xy_size,
-              unsigned int number_size, unsigned int position, unsigned int branches[]);
+void            OFI (mpz_t& x, mpz_t& y, mpz_t& diff, mpz_t& number, mpz_t results[MAX_XY_SIZE], const unsigned int xy_size,
+                     unsigned int position, unsigned int branches[MAX_N_SIZE]                          );
 
-void widthOFI       (mpz_int& x, mpz_int& y, mpz_int& number, mpz_int results[], unsigned int xy_size,
-              unsigned int number_size, unsigned int position, unsigned int branches[]);
-
-void depthSource    (mpz_int& x, mpz_int& y, mpz_int& number, mpz_int results[], unsigned int xy_size,
-              unsigned int number_size, unsigned int position, unsigned int branches[],
-              unsigned int threadID, unsigned int* thread_ids);
-
-void depthIterate   (mpz_int& x, mpz_int& y, mpz_int& number, mpz_int results[], unsigned int xy_size,
-              unsigned int number_size, unsigned int position, unsigned int branches[]);
-
-void depthOFI       (mpz_int& x, mpz_int& y, mpz_int& number, mpz_int results[], unsigned int xy_size,
-              unsigned int number_size, unsigned int position, unsigned int branches[]);
-
-void squareHunter();
-
-void brancher();
-
-void singleRunner();
+void    checkResult (mpz_t& x, mpz_t& y, mpz_t& diff, mpz_t& number, mpz_t results[MAX_XY_SIZE], const unsigned int xy_size,
+                     const unsigned int position, unsigned int branches[MAX_N_SIZE], const unsigned int number_size);
