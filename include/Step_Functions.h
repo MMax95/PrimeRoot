@@ -21,6 +21,7 @@ enum BranchType{
     oppositeRight   = 0b10110  ///flipped: 0b01001, offloaded: 0b00110
 };
 
+
 void         getNodeType    (const mpz_t& number, const mpz_t& result, unsigned int position, unsigned int branches[MAX_N_SIZE]);
 void         getNodeTypeLL  (const mpz_t& number, const mpz_t& result, unsigned int position, unsigned int branches[MAX_N_SIZE]);
 void         getNodeTypeLR  (const mpz_t& number, const mpz_t& result, unsigned int position, unsigned int branches[MAX_N_SIZE]);

@@ -13,6 +13,9 @@ void        getNodeType(const mpz_t& number, const mpz_t& result, unsigned int p
     }else{
         branches[position] = 0b11100;
     }
+//        branches[position] =  (mpz_tstbit(number, position) ^ mpz_tstbit(result, position)) * 0b11001
+//                           + !(mpz_tstbit(number, position) ^ mpz_tstbit(result, position)) * 0b11100;
+///Branch-less variant yielded a 5% decrease in speed
 }
 
 void        getNodeTypeLL(const mpz_t& number, const mpz_t& result, unsigned int position, unsigned int branches[MAX_XY_SIZE])

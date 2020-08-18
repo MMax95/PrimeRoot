@@ -49,12 +49,12 @@ void   widthIterateLL (mpz_t& x, mpz_t& y, mpz_t& diff, mpz_t& number, mpz_t res
         {
             makeResult(results[position], results[position - 1], position, branches[position], x, y, diff);
             setXY(x, y, position, branches[position]);
-            widthIterate(x, y, diff, number, results, xy_size, position + 1, branches, number_size);
+            widthIterateLL(x, y, diff, number, results, xy_size, position + 1, branches, number_size);
             resetXY(x, y, position);
             branches[position] = branches[position] >> 2;
             makeResult(results[position], results[position - 1], position, branches[position], x, y, diff);
             setXY(x, y, position, branches[position]);
-            widthIterate(x, y, diff, number, results, xy_size, position + 1, branches, number_size);
+            widthIterateLL(x, y, diff, number, results, xy_size, position + 1, branches, number_size);
             resetXY(x, y, position);
         } else if ((branches[position] == oppositeLeft) ||
                    (branches[position] == oppositeRight))
@@ -79,18 +79,19 @@ void   widthIterateLR (mpz_t& x, mpz_t& y, mpz_t& diff, mpz_t& number, mpz_t res
         {
             makeResult(results[position], results[position - 1], position, branches[position], x, y, diff);
             setXY(x, y, position, branches[position]);
-            widthIterate(x, y, diff, number, results, xy_size, position + 1, branches, number_size);
+            widthIterateLR(x, y, diff, number, results, xy_size, position + 1, branches, number_size);
             resetXY(x, y, position);
             branches[position] = branches[position] >> 2;
             makeResult(results[position], results[position - 1], position, branches[position], x, y, diff);
             setXY(x, y, position, branches[position]);
-            widthIterate(x, y, diff, number, results, xy_size, position + 1, branches, number_size);
+            widthIterateLR(x, y, diff, number, results, xy_size, position + 1, branches, number_size);
             resetXY(x, y, position);
         } else if ((branches[position] == oppositeLeft) ||
                    (branches[position] == oppositeRight))
         {
-            depthIterateLR(x, y, diff, number, results, xy_size, position, branches, number_size);
             branches[position] = branches[position] >> 2;
+            depthIterate(x, y, diff, number, results, xy_size, position, branches, number_size);
+
         }
 
     }else if(position < number_size)
@@ -109,16 +110,17 @@ void   widthIterateRL (mpz_t& x, mpz_t& y, mpz_t& diff, mpz_t& number, mpz_t res
         {
             makeResult(results[position], results[position - 1], position, branches[position], x, y, diff);
             setXY(x, y, position, branches[position]);
-            widthIterate(x, y, diff, number, results, xy_size, position + 1, branches, number_size);
+            widthIterateRL(x, y, diff, number, results, xy_size, position + 1, branches, number_size);
             resetXY(x, y, position);
             branches[position] = branches[position] >> 2;
             makeResult(results[position], results[position - 1], position, branches[position], x, y, diff);
             setXY(x, y, position, branches[position]);
-            widthIterate(x, y, diff, number, results, xy_size, position + 1, branches, number_size);
+            widthIterateRL(x, y, diff, number, results, xy_size, position + 1, branches, number_size);
             resetXY(x, y, position);
         } else if ((branches[position] == oppositeLeft) ||
                    (branches[position] == oppositeRight))
         {
+
             depthIterateRL(x, y, diff, number, results, xy_size, position, branches, number_size);
             branches[position] = branches[position] >> 2;
         }
@@ -150,8 +152,9 @@ void   widthIterateRR (mpz_t& x, mpz_t& y, mpz_t& diff, mpz_t& number, mpz_t res
             } else if ((branches[position] == oppositeLeft) ||
                        (branches[position] == oppositeRight))
             {
-                depthIterateRR(x, y, diff, number, results, xy_size, position, branches, number_size);
                 branches[position] = branches[position] >> 2;
+                depthIterateRR(x, y, diff, number, results, xy_size, position, branches, number_size);
+
             }
 
         }else if(position < number_size)
@@ -169,7 +172,7 @@ void depthIterate(mpz_t& x, mpz_t& y, mpz_t& diff, mpz_t& number, mpz_t results[
         setXY(x, y, position, branches[position]);
         getNodeType(number, results[position], position + 1, branches);                                 /// get next branch
         depthIterate(x, y, diff, number, results, xy_size, position + 1, branches, number_size);
-        if(branches[position + 1] & 0b10000 && (position + 1 < xy_size))
+        if(branches[position + 1] & 0b10000 /*&& (position + 1 < xy_size)*/)
         {
             branches[position + 1] = branches[position + 1] >> 2;                                          /// switches the child node (00 to 11) or (01 to 10)
             depthIterate(x, y, diff, number, results, xy_size, position + 1, branches, number_size);
@@ -189,7 +192,7 @@ void   depthIterateLL (mpz_t& x, mpz_t& y, mpz_t& diff, mpz_t& number, mpz_t res
         setXY(x, y, position, branches[position]);
         getNodeTypeLL(number, results[position], position + 1, branches);                                 /// get next branch
         depthIterateLL(x, y, diff, number, results, xy_size, position + 1, branches, number_size);
-        if(branches[position + 1] & 0b10000 && (position + 1 < xy_size))
+        if(branches[position + 1] & 0b10000 /*&& (position + 1 < xy_size)*/)
         {
             branches[position + 1] = branches[position + 1] >> 2;                                          /// switches the child node (00 to 11) or (01 to 10)
             depthIterateLL(x, y, diff, number, results, xy_size, position + 1, branches, number_size);
@@ -209,7 +212,7 @@ void   depthIterateLR (mpz_t& x, mpz_t& y, mpz_t& diff, mpz_t& number, mpz_t res
         setXY(x, y, position, branches[position]);
         getNodeTypeLR(number, results[position], position + 1, branches);                                 /// get next branch
         depthIterateLR(x, y, diff, number, results, xy_size, position + 1, branches, number_size);
-        if(branches[position + 1] & 0b10000 && (position + 1 < xy_size))
+        if(branches[position + 1] & 0b10000 /*&& (position + 1 < xy_size)*/)
         {
             branches[position + 1] = branches[position + 1] >> 2;                                          /// switches the child node (00 to 11) or (01 to 10)
             depthIterateLR(x, y, diff, number, results, xy_size, position + 1, branches, number_size);
@@ -229,9 +232,9 @@ void   depthIterateRL (mpz_t& x, mpz_t& y, mpz_t& diff, mpz_t& number, mpz_t res
         setXY(x, y, position, branches[position]);
         getNodeTypeRL(number, results[position], position + 1, branches);                                 /// get next branch
         depthIterateRL(x, y, diff, number, results, xy_size, position + 1, branches, number_size);
-        if(branches[position + 1] & 0b10000 && (position + 1 < xy_size))
+        if(branches[position + 1] & 0b10000 /*&& (position + 1 < xy_size)*/)
         {
-            branches[position + 1] = branches[position + 1] >> 2;                                          /// switches the child node (00 to 11) or (01 to 10)
+            branches[position + 1] = branches[position + 1] >> 2;
             depthIterateRL(x, y, diff, number, results, xy_size, position + 1, branches, number_size);
         }
         resetXY(x, y, position);                                                                       /// resets X[position] and Y[position]
@@ -249,7 +252,7 @@ void   depthIterateRR (mpz_t& x, mpz_t& y, mpz_t& diff, mpz_t& number, mpz_t res
         setXY(x, y, position, branches[position]);
         getNodeTypeRR(number, results[position], position + 1, branches);                                 /// get next branch
         depthIterateRR(x, y, diff, number, results, xy_size, position + 1, branches, number_size);
-        if(branches[position + 1] & 0b10000 && (position + 1 < xy_size))
+        if(branches[position + 1] & 0b10000 /*&& (position + 1 < xy_size)*/)
         {
             branches[position + 1] = branches[position + 1] >> 2;                                          /// switches the child node (00 to 11) or (01 to 10)
             depthIterateRR(x, y, diff, number, results, xy_size, position + 1, branches, number_size);
@@ -306,16 +309,16 @@ void checkResult(mpz_t& x, mpz_t& y, mpz_t& diff, mpz_t& number, mpz_t results[M
     } else if ((branches[xy_size - 1] & 0b11) == 0b11)
     {
         return;
-    } else if ((branches[xy_size] & 0b11) == 0b11)
+    } else if ((branches[xy_size]     & 0b11) == 0b11)
     {
         return;
-    } else if ((branches[xy_size - 1]  & 0b11) == 0b01)
+    } else if ((branches[xy_size - 1] & 0b11) == 0b01)
     {
         OFI(x, y, diff, number, results, xy_size, position, branches);
-    } else if ((branches[xy_size - 1]  & 0b11)  == 0b10)
+    } else if ((branches[xy_size - 1] & 0b11) == 0b10)
     {
         OFI(y, x, diff, number, results, xy_size, position, branches);
-    } else if ((branches[xy_size - 1]  & 0b11) == 0b00)
+    } else if ((branches[xy_size - 1] & 0b11) == 0b00)
     {
         OFI(x, y, diff, number, results, xy_size, position, branches);
         OFI(y, x, diff, number, results, xy_size, position, branches);
