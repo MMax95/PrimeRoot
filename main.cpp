@@ -1,47 +1,91 @@
 #include <iostream>
-#include "include/Iterator_Functions.h"
+#include <string>
+#include "include/Memory_Functions.h"
 
-#include <omp.h>
-#include <boost/numeric/odeint.hpp>
-#include <boost/numeric/odeint/external/openmp/openmp.hpp>
-#include <boost/numeric/odeint/external/mpi/mpi.hpp>
-#include <mpi-ext.h>
 int main(int argc, char* argv[])
 {
     using namespace boost::multiprecision;
-    mpz_int number;
-    unsigned int thread_number;
-    unsigned int* threads;
 
-    MPI_Init(&argc, &argv);
+    if(argc > 1)
+    {
+        const char *number_string = argv[1];
 
-    int rank;
-    MPI_Comm_rank(MPI_COMM_WORLD, &rank);
-    if (rank == 0) {
-        int value = 17;
-        int result = MPI_Send(&value, 1, MPI_INT, 1, 0, MPI_COMM_WORLD);
-        if (result == MPI_SUCCESS)
-            std::cout << "Rank 0 OK!" << std::endl;
-    } else if (rank == 1) {
-        int value;
-        int result = MPI_Recv(&value, 1, MPI_INT, 0, 0, MPI_COMM_WORLD,MPI_STATUS_IGNORE);
-        if (result == MPI_SUCCESS && value == 17)
-            std::cout << "Rank 1 OK!" << std::endl;
-    } else if (rank == 2) {
-        std::cout << "This is the 3rd thread" << std::endl;
+        Runner thread_1;
+        unsigned int starting_position = 1;
+        mpz_init_set_str(thread_1.number, number_string, 10);
+        thread_1.number_size = mpn_sizeinbase(thread_1.number->_mp_d, thread_1.number->_mp_size, 2);
+        thread_1.xy_size = thread_1.number_size / 2 + 1;
+
+        generateTree(thread_1.results, thread_1.branches, thread_1.x, thread_1.y, thread_1.diff, thread_1.xy_size, thread_1.number_size);
+
+        if(argc > 2)
+        {
+            std::string strategy = argv[2];
+            if(strategy == "LL")
+            {
+                std::cout << "Selected strategy: Equal Left - Opposite Left" << std::endl;
+                clock_t start, end;
+                double cpu_time_used;
+                start = clock();
+                widthIterateLL(thread_1.x, thread_1.y, thread_1.diff, thread_1.number, thread_1.results, thread_1.xy_size, starting_position, thread_1.branches, thread_1.number_size);
+                end = clock();
+                cpu_time_used = ((double) (end - start)) / CLOCKS_PER_SEC;
+                std::cout << cpu_time_used << "seconds for " << thread_1.number_size << "bits " << std::endl;
+
+            }else if(strategy == "LR")
+            {
+                std::cout << "Selected strategy: Equal Left - Opposite Right" << std::endl;
+                clock_t start, end;
+                double cpu_time_used;
+                start = clock();
+                widthIterateLR(thread_1.x, thread_1.y, thread_1.diff, thread_1.number, thread_1.results, thread_1.xy_size, starting_position, thread_1.branches, thread_1.number_size);
+                end = clock();
+                cpu_time_used = ((double) (end - start)) / CLOCKS_PER_SEC;
+                std::cout << cpu_time_used << "seconds for " << thread_1.number_size << "bits " << std::endl;
+
+            }else if(strategy == "RL")
+            {
+                std::cout << "Selected strategy: Equal Right - Opposite Left" << std::endl;
+                clock_t start, end;
+                double cpu_time_used;
+                start = clock();
+                widthIterateRL(thread_1.x, thread_1.y, thread_1.diff, thread_1.number, thread_1.results, thread_1.xy_size, starting_position, thread_1.branches, thread_1.number_size);
+                end = clock();
+                cpu_time_used = ((double) (end - start)) / CLOCKS_PER_SEC;
+                std::cout << cpu_time_used << "seconds for " << thread_1.number_size << "bits " << std::endl;
+
+            }else if(strategy == "RR")
+            {
+                std::cout << "Selected strategy: Equal Right - Opposite Right" << std::endl;
+                clock_t start, end;
+                double cpu_time_used;
+                start = clock();
+                widthIterateRR(thread_1.x, thread_1.y, thread_1.diff, thread_1.number, thread_1.results, thread_1.xy_size, starting_position, thread_1.branches, thread_1.number_size);
+                end = clock();
+                cpu_time_used = ((double) (end - start)) / CLOCKS_PER_SEC;
+                std::cout << cpu_time_used << "seconds for " << thread_1.number_size << "bits " << std::endl;
+
+            }else{
+                std::cout << "Unknown strategy selected" << std::endl;
+                return 0;
+            }
+            return 0;
+        }
+
+
+
+        clock_t start, end;
+        double cpu_time_used;
+        start = clock();
+        widthIterate(thread_1.x, thread_1.y, thread_1.diff, thread_1.number, thread_1.results, thread_1.xy_size, starting_position, thread_1.branches, thread_1.number_size);
+        end = clock();
+        cpu_time_used = ((double) (end - start)) / CLOCKS_PER_SEC;
+        std::cout << cpu_time_used << "seconds for " << thread_1.number_size << "bits" << std::endl;
+
+
+    } else {
+        printf("No arguments provided.");
+        return 0;
     }
-    std::cout << "This operation is done by thread " << rank << std::endl;
-    int MPIX_Query_cuda_support(void);
-    std::cout << "CUDA Support: " << MPIX_Query_cuda_support << std::endl;
-
-    int world_size;
-    MPI_Comm_size(MPI_COMM_WORLD, &world_size);
-    std::cout << "Comm_size: " << world_size << std::endl;
-
-    MPI_Finalize();
-
-
-
     return 0;
-
 }
