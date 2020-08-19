@@ -27,7 +27,7 @@ int main(int argc, char* argv[])
                 clock_t start, end;
                 double cpu_time_used;
                 start = clock();
-                widthIterateLL(thread_1.x, thread_1.y, thread_1.diff, thread_1.number, thread_1.results, thread_1.xy_size, starting_position, thread_1.branches, thread_1.number_size);
+                widthIterateAllocator(thread_1.x, thread_1.y, thread_1.diff, thread_1.number, thread_1.results, thread_1.xy_size, starting_position, thread_1.branches, thread_1.number_size, LL);
                 end = clock();
                 cpu_time_used = ((double) (end - start)) / CLOCKS_PER_SEC;
                 std::cout << cpu_time_used << "seconds for " << thread_1.number_size << "bits " << std::endl;
@@ -38,8 +38,7 @@ int main(int argc, char* argv[])
                 clock_t start, end;
                 double cpu_time_used;
                 start = clock();
-                widthIterateLR(thread_1.x, thread_1.y, thread_1.diff, thread_1.number, thread_1.results, thread_1.xy_size, starting_position, thread_1.branches, thread_1.number_size);
-                end = clock();
+                widthIterateAllocator(thread_1.x, thread_1.y, thread_1.diff, thread_1.number, thread_1.results, thread_1.xy_size, starting_position, thread_1.branches, thread_1.number_size, LR);                end = clock();
                 cpu_time_used = ((double) (end - start)) / CLOCKS_PER_SEC;
                 std::cout << cpu_time_used << "seconds for " << thread_1.number_size << "bits " << std::endl;
 
@@ -49,8 +48,7 @@ int main(int argc, char* argv[])
                 clock_t start, end;
                 double cpu_time_used;
                 start = clock();
-                widthIterateRL(thread_1.x, thread_1.y, thread_1.diff, thread_1.number, thread_1.results, thread_1.xy_size, starting_position, thread_1.branches, thread_1.number_size);
-                end = clock();
+                widthIterateAllocator(thread_1.x, thread_1.y, thread_1.diff, thread_1.number, thread_1.results, thread_1.xy_size, starting_position, thread_1.branches, thread_1.number_size, RL);                end = clock();
                 cpu_time_used = ((double) (end - start)) / CLOCKS_PER_SEC;
                 std::cout << cpu_time_used << "seconds for " << thread_1.number_size << "bits " << std::endl;
 
@@ -60,8 +58,7 @@ int main(int argc, char* argv[])
                 clock_t start, end;
                 double cpu_time_used;
                 start = clock();
-                widthIterateRR(thread_1.x, thread_1.y, thread_1.diff, thread_1.number, thread_1.results, thread_1.xy_size, starting_position, thread_1.branches, thread_1.number_size);
-                end = clock();
+                widthIterateAllocator(thread_1.x, thread_1.y, thread_1.diff, thread_1.number, thread_1.results, thread_1.xy_size, starting_position, thread_1.branches, thread_1.number_size, RR);                end = clock();
                 cpu_time_used = ((double) (end - start)) / CLOCKS_PER_SEC;
                 std::cout << cpu_time_used << "seconds for " << thread_1.number_size << "bits " << std::endl;
 
