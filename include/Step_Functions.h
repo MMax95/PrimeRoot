@@ -20,6 +20,12 @@ enum BranchType{
     oppositeLeft    = 0b11001, ///flipped: 0b00110, offloaded: 0b01001
     oppositeRight   = 0b10110  ///flipped: 0b01001, offloaded: 0b00110
 };
+enum StrategyType{
+    LL   = 0b11001001, ///flipped: 0b00011, offloaded: 0b01100
+    LR   = 0b11000110, ///flipped: 0b01100, offloaded: 0b00011
+    RL   = 0b00111001, ///flipped: 0b00110, offloaded: 0b01001
+    RR   = 0b00110110  ///flipped: 0b01001, offloaded: 0b00110
+};
 
 
 void         getNodeType    (const mpz_t& number, const mpz_t& result, unsigned int position, unsigned int branches[MAX_N_SIZE]);
