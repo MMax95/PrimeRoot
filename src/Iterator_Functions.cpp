@@ -9,59 +9,7 @@ char *printNumber(mpz_t& number)
     return mpz_get_str(buffer, 10, number);
 }
 
-void   widthIterateAllocator (mpz_t& x, mpz_t& y, mpz_t& diff, mpz_t& number, mpz_t results[MAX_XY_SIZE], const unsigned int xy_size,
-                              const unsigned int position, unsigned int branches[MAX_N_SIZE], const unsigned int number_size, StrategyType strategy)
-{
-    void (*widthStrategicIterator)(mpz_t&, mpz_t&, mpz_t&, mpz_t&, mpz_t*, const unsigned int,
-                              const unsigned int, unsigned int*, const unsigned int);
-    void (*depthStrategicIterator)(mpz_t&, mpz_t&, mpz_t&, mpz_t&, mpz_t*, const unsigned int,
-                                   const unsigned int, unsigned int*, const unsigned int);
-    switch (strategy){
-        case LL:
-            widthStrategicIterator = &widthIterateLL;
-            depthStrategicIterator = &depthIterateLL;
-            break;
-        case LR:
-            widthStrategicIterator = &widthIterateLR;
-            depthStrategicIterator = &depthIterateLR;
-            break;
-        case RL:
-            widthStrategicIterator = &widthIterateRL;
-            depthStrategicIterator = &depthIterateRL;
-            break;
-        case RR:
-            widthStrategicIterator = &widthIterateRR;
-            depthStrategicIterator = &depthIterateRR;
-            break;
-    }
-    if(position < xy_size) {
 
-        getNodeType(number, results[position - 1], position, branches);
-        if ((branches[position] == equalLeft) ||
-            (branches[position] == equalRight))
-        {
-            makeResult(results[position], results[position - 1], position, branches[position], x, y, diff);
-            setXY(x, y, position, branches[position]);
-            widthStrategicIterator(x, y, diff, number, results, xy_size, position + 1, branches, number_size);
-            resetXY(x, y, position);
-            branches[position] = branches[position] >> 2;
-            makeResult(results[position], results[position - 1], position, branches[position], x, y, diff);
-            setXY(x, y, position, branches[position]);
-            widthStrategicIterator(x, y, diff, number, results, xy_size, position + 1, branches, number_size);
-            resetXY(x, y, position);
-        } else if ((branches[position] == oppositeLeft) ||
-                   (branches[position] == oppositeRight))
-        {
-            branches[position] = branches[position] ^ 0b10000;
-            depthStrategicIterator(x, y, diff, number, results, xy_size, position, branches, number_size);
-            branches[position] = branches[position] >> 2;
-        }
-
-    }else if(position < number_size)
-    {
-        checkResult(x, y, diff, number, results, xy_size, position, branches, number_size);
-    }
-}
 
 void widthIterate(mpz_t& x, mpz_t& y, mpz_t& diff, mpz_t& number, mpz_t results[MAX_XY_SIZE], unsigned int xy_size, const unsigned int position, unsigned int branches[MAX_N_SIZE], unsigned int number_size)
 {
@@ -218,43 +166,6 @@ void   widthIterateRR (mpz_t& x, mpz_t& y, mpz_t& diff, mpz_t& number, mpz_t res
     }
 }
 
-void   depthIterateAllocator (mpz_t& x, mpz_t& y, mpz_t& diff, mpz_t& number, mpz_t results[MAX_XY_SIZE], const unsigned int xy_size,
-                              const unsigned int position, unsigned int branches[MAX_N_SIZE], const unsigned int number_size, StrategyType strategy)
-{
-    void (*strategicIterator)(mpz_t&, mpz_t&, mpz_t&, mpz_t&, mpz_t*, const unsigned int,
-                              const unsigned int, unsigned int*, const unsigned int);
-    switch (strategy){
-        case LL:
-            strategicIterator = &depthIterateLL;
-            break;
-        case LR:
-            strategicIterator = &depthIterateLR;
-            break;
-        case RL:
-            strategicIterator = &depthIterateRL;
-            break;
-        case RR:
-            strategicIterator = &depthIterateRR;
-            break;
-    }
-
-    if (position < xy_size)
-    {
-        makeResult(results[position], results[position - 1], position, branches[position], x, y, diff);
-        setXY(x, y, position, branches[position]);
-        getNodeType(number, results[position], position + 1, branches);                                 /// get next branch
-        strategicIterator(x, y, diff, number, results, xy_size, position + 1, branches, number_size);
-        if(branches[position + 1] & 0b10000 /*&& (position + 1 < xy_size)*/)
-        {
-            branches[position + 1] = branches[position + 1] >> 2;                                          /// switches the child node (00 to 11) or (01 to 10)
-            strategicIterator(x, y, diff, number, results, xy_size, position + 1, branches, number_size);
-        }
-        resetXY(x, y, position);                                                                       /// resets X[position] and Y[position]
-    } else if (position < number_size)
-    {
-        checkResult(x, y, diff, number, results, xy_size, position, branches, number_size);
-    }
-}
 
 void depthIterate(mpz_t& x, mpz_t& y, mpz_t& diff, mpz_t& number, mpz_t results[MAX_XY_SIZE], unsigned int xy_size, const unsigned int position, unsigned int branches[MAX_N_SIZE], unsigned int number_size)
 {
@@ -393,7 +304,7 @@ void checkResult(mpz_t& x, mpz_t& y, mpz_t& diff, mpz_t& number, mpz_t results[M
     int compared_result = mpn_cmp(results[position - 1]->_mp_d, number->_mp_d, number->_mp_size);
     if (compared_result == 0)
     {
-        std::cout << "Result_found " << printNumber(x) << " * " << printNumber(y) << " = " << printNumber(results[position - 1]);
+        std::cout << "Result_found " << printNumber(x) << " * " << printNumber(y) << " = " << printNumber(results[position - 1]) << "\n";
         return;
     } else if (compared_result > 0)
     {
