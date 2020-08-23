@@ -9,8 +9,6 @@
 
 #include "Step_Functions.h"
 
-void   widthIterateAllocator (mpz_t& x, mpz_t& y, mpz_t& diff, mpz_t& number, mpz_t results[MAX_XY_SIZE], const unsigned int xy_size,
-                     const unsigned int position, unsigned int branches[MAX_N_SIZE], const unsigned int number_size, StrategyType strategy);
 void   widthIterate (mpz_t& x, mpz_t& y, mpz_t& diff, mpz_t& number, mpz_t results[MAX_XY_SIZE], const unsigned int xy_size,
                      const unsigned int position, unsigned int branches[MAX_N_SIZE], const unsigned int number_size);
 void   widthIterateLL (mpz_t& x, mpz_t& y, mpz_t& diff, mpz_t& number, mpz_t results[MAX_XY_SIZE], const unsigned int xy_size,
@@ -22,8 +20,6 @@ void   widthIterateRL (mpz_t& x, mpz_t& y, mpz_t& diff, mpz_t& number, mpz_t res
 void   widthIterateRR (mpz_t& x, mpz_t& y, mpz_t& diff, mpz_t& number, mpz_t results[MAX_XY_SIZE], const unsigned int xy_size,
                        const unsigned int position, unsigned int branches[MAX_N_SIZE], const unsigned int number_size);
 
-void   depthIterateAllocator (mpz_t& x, mpz_t& y, mpz_t& diff, mpz_t& number, mpz_t results[MAX_XY_SIZE], const unsigned int xy_size,
-                     const unsigned int position, unsigned int branches[MAX_N_SIZE], const unsigned int number_size, StrategyType strategy);
 void   depthIterate (mpz_t& x, mpz_t& y, mpz_t& diff, mpz_t& number, mpz_t results[MAX_XY_SIZE], const unsigned int xy_size,
                      const unsigned int position, unsigned int branches[MAX_N_SIZE], const unsigned int number_size);
 void   depthIterateLL (mpz_t& x, mpz_t& y, mpz_t& diff, mpz_t& number, mpz_t results[MAX_XY_SIZE], const unsigned int xy_size,
