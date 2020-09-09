@@ -66,21 +66,6 @@ int main(int argc, char* argv[])
             cpu_time_used = ((double) (end - start)) / CLOCKS_PER_SEC;
             std::cout << cpu_time_used << "seconds for " << mpz_sizeinbase(targetNumber, 2) << "bits " << std::endl;
 
-            ///Read factors
-
-//            std::cout << "Unique factors: \n" ;
-//            for(Result factor: unique_factors){
-//                gmp_printf("%Zd\n", factor.number);
-//                if(factor.left != nullptr)
-//                {
-//                gmp_printf("Left child: %Zd \n", factor.left->number);
-//                gmp_printf("Right child: %Zd \n", factor.right->number);
-//                gmp_printf("\n");
-//
-//                }
-//
-//            }
-
             std::cout << "\n";
             char charBuffer[1024];
             strcat(charBuffer, "1");
