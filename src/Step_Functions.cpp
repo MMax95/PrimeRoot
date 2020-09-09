@@ -3,6 +3,8 @@
 //
 
 #include "../include/Step_Functions.h"
+list<Result> unique_factors;
+list<Result>::iterator it = unique_factors.begin();
 
 ///Single functions
 void        getNodeType(const mpz_t& number, const mpz_t& result, unsigned int position, unsigned int branches[MAX_XY_SIZE])
@@ -105,4 +107,23 @@ void         resetXY(mpz_t& x, mpz_t& y, unsigned int position)
 {
     mpz_clrbit(x, position);
     mpz_clrbit(y, position);
+}
+
+char*        readResults(Result *root, char charBuffer[1024])
+{
+//    gmp_printf("Current node %Zd \n", root->number);
+    if(mpz_cmp_ui(root->left->number, 1))
+    {
+//        std::cout << "Current string: \n" << charBuffer << "\n";
+//        getchar();
+        readResults(root->left, charBuffer);
+        readResults(root->right, charBuffer);
+    }else{
+//        getchar();
+        char temp_char[MAX_N_SIZE];
+        mpz_get_str(temp_char, 10, root->number);
+        strcat(charBuffer, ", ");
+        strcat(charBuffer, temp_char);
+    }
+    return charBuffer;
 }
