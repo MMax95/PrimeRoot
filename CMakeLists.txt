@@ -17,7 +17,7 @@ add_executable(PrimeRoot main.cpp
         include/Memory_Functions.h
         src/Memory_Functions.cpp
         include/Iterator_Functions.h
-        src/Iterator_Functions.cpp)
+        src/Iterator_Functions.cpp include/Global_Containers.h)
 
 target_link_libraries(${PROJECT_NAME}
         "/usr/lib/x86_64-linux-gnu/libgmp.a"

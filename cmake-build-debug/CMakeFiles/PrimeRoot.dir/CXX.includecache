@@ -10,27 +10,13 @@
 Step_Functions.h
 /home/blackberry/Projects/PrimeRoot/include/Step_Functions.h
 
-/home/blackberry/Projects/PrimeRoot/include/Memory_Functions.h
-Iterator_Functions.h
-/home/blackberry/Projects/PrimeRoot/include/Iterator_Functions.h
-omp.h
--
-pthread.h
--
-
 /home/blackberry/Projects/PrimeRoot/include/Step_Functions.h
 boost/multiprecision/gmp.hpp
 -
-
-/home/blackberry/Projects/PrimeRoot/main.cpp
-iostream
+boost/container/list.hpp
 -
-string
--
-include/Memory_Functions.h
-/home/blackberry/Projects/PrimeRoot/include/Memory_Functions.h
 
-/home/blackberry/Projects/PrimeRoot/src/Memory_Functions.cpp
-../include/Memory_Functions.h
-/home/blackberry/Projects/PrimeRoot/include/Memory_Functions.h
+/home/blackberry/Projects/PrimeRoot/src/Iterator_Functions.cpp
+../include/Iterator_Functions.h
+/home/blackberry/Projects/PrimeRoot/include/Iterator_Functions.h
 

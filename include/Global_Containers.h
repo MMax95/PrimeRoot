@@ -1,0 +1,9 @@
+//
+// Created by blackberry on 05.09.2020.
+//
+
+#ifndef PRIMEROOT_GLOBAL_CONTAINERS_H
+#define PRIMEROOT_GLOBAL_CONTAINERS_H
+
+#endif //PRIMEROOT_GLOBAL_CONTAINERS_H
+
