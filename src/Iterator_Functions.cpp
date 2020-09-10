@@ -4,6 +4,7 @@
 
 #include "../include/Iterator_Functions.h"
 char* buffer;
+bool printouts = false;
 
 char *printNumber(mpz_t& number)
 {
@@ -28,11 +29,9 @@ void   widthIterateLL (mpz_t& x, mpz_t& y, mpz_t& diff, mpz_t& number, mpz_t res
             setXY(x, y, position, branches[position]);
             widthIterateLL(x, y, diff, number, results, xy_size, position + 1, branches, number_size, currentRunner);
             resetXY(x, y, position);
-        } else if ((branches[position] == oppositeLeft) ||
-                   (branches[position] == oppositeRight))
-        {
+        } else {
+            branches[position] = branches[position] & 0b1111;
             depthIterateLL(x, y, diff, number, results, xy_size, position, branches, number_size, currentRunner);
-            branches[position] = branches[position] >> 2;
         }
 
     }else if(position < number_size)
@@ -58,12 +57,9 @@ void   widthIterateLR (mpz_t& x, mpz_t& y, mpz_t& diff, mpz_t& number, mpz_t res
             setXY(x, y, position, branches[position]);
             widthIterateLR(x, y, diff, number, results, xy_size, position + 1, branches, number_size, currentRunner);
             resetXY(x, y, position);
-        } else if ((branches[position] == oppositeLeft) ||
-                   (branches[position] == oppositeRight))
-        {
-            branches[position] = branches[position] >> 2;
+        } else {
+            branches[position] = branches[position] & 0b1111;
             depthIterateLR(x, y, diff, number, results, xy_size, position, branches, number_size, currentRunner);
-
         }
 
     }else if(position < number_size)
@@ -89,13 +85,9 @@ void   widthIterateRL (mpz_t& x, mpz_t& y, mpz_t& diff, mpz_t& number, mpz_t res
             setXY(x, y, position, branches[position]);
             widthIterateRL(x, y, diff, number, results, xy_size, position + 1, branches, number_size, currentRunner);
             resetXY(x, y, position);
-        } else if ((branches[position] == oppositeLeft) ||
-                   (branches[position] == oppositeRight))
-        {
-
-            branches[position] = branches[position] & 11;
+        } else {
+            branches[position] = branches[position] & 0b1111;
             depthIterateRL(x, y, diff, number, results, xy_size, position, branches, number_size, currentRunner);
-
         }
 
     }else if(position < number_size)
@@ -106,32 +98,39 @@ void   widthIterateRL (mpz_t& x, mpz_t& y, mpz_t& diff, mpz_t& number, mpz_t res
 void   widthIterateRR (mpz_t& x, mpz_t& y, mpz_t& diff, mpz_t& number, mpz_t results[MAX_XY_SIZE], unsigned int &xy_size,
                        const unsigned int position, unsigned int branches[MAX_N_SIZE], unsigned int &number_size, Runner &currentRunner)
 {
+    if(printouts){std::cout << "Width: " << position <<"\n";}
+
     {
         if(position < xy_size) {
-
             getNodeTypeRR(number, results[position - 1], position, branches);
             if ((branches[position] == equalLeft) ||
                 (branches[position] == equalRight))
             {
                 makeResult(results[position], results[position - 1], position, branches[position], x, y, diff);
                 setXY(x, y, position, branches[position]);
+
+                if(printouts){std::cout << " Branch "<< branches[position] << " Right child: ";
+                    gmp_printf(mpz_get_str (buffer, 2, results[position]));
+                    gmp_printf("\n");}
+
                 widthIterateRR(x, y, diff, number, results, xy_size, position + 1, branches, number_size, currentRunner);
                 resetXY(x, y, position);
                 branches[position] = branches[position] >> 2;
+                if(printouts){std::cout << " Branch "<< branches[position] << " Left child: ";}
+
                 makeResult(results[position], results[position - 1], position, branches[position], x, y, diff);
                 setXY(x, y, position, branches[position]);
                 widthIterateRR(x, y, diff, number, results, xy_size, position + 1, branches, number_size, currentRunner);
                 resetXY(x, y, position);
-            } else if ((branches[position] == oppositeLeft) ||
-                       (branches[position] == oppositeRight))
-            {
-                branches[position] = branches[position] >> 2;
+            } else {
+                branches[position] = branches[position] & 0b1111;
                 depthIterateRR(x, y, diff, number, results, xy_size, position, branches, number_size, currentRunner);
-
             }
 
         }else if(position < number_size)
         {
+            if(printouts){std::cout <<"\n";}
+
             checkResultR(x, y, diff, number, results, xy_size, position, branches, number_size, currentRunner);
         }
     }
@@ -202,9 +201,15 @@ void   depthIterateRL (mpz_t& x, mpz_t& y, mpz_t& diff, mpz_t& number, mpz_t res
 void   depthIterateRR (mpz_t& x, mpz_t& y, mpz_t& diff, mpz_t& number, mpz_t results[MAX_XY_SIZE], unsigned int &xy_size,
                        const unsigned int position, unsigned int branches[MAX_N_SIZE], unsigned int &number_size, Runner &currentRunner)
 {
+    if(printouts){std::cout << "Depth: " << position << " Branch: "<< branches[position] <<"\n";}
+
     if (position < xy_size)
     {
         makeResult(results[position], results[position - 1], position, branches[position], x, y, diff);
+        if(printouts){gmp_printf("Number: ");
+            gmp_printf(mpz_get_str (buffer, 2, results[position]));
+            gmp_printf("\n\n");}
+
         setXY(x, y, position, branches[position]);
         getNodeTypeRR(number, results[position], position + 1, branches);                                 /// get next branch
         depthIterateRR(x, y, diff, number, results, xy_size, position + 1, branches, number_size, currentRunner);
@@ -216,6 +221,8 @@ void   depthIterateRR (mpz_t& x, mpz_t& y, mpz_t& diff, mpz_t& number, mpz_t res
         resetXY(x, y, position);                                                                       /// resets X[position] and Y[position]
     } else if (position <= number_size)
     {
+        if(printouts){std::cout <<"\n";}
+
         checkResultR(x, y, diff, number, results, xy_size, position, branches, number_size, currentRunner);
     }
 }
@@ -242,6 +249,7 @@ void OFI(mpz_t& x, mpz_t& y, mpz_t& diff, mpz_t& number, mpz_t results[MAX_XY_SI
 //        std::cout << printNumber(x) << " * " << printNumber(y) << " = " << printNumber(results[xy_size]) << std::endl;
         addResult(x, y, diff, number, xy_size, currentRunner.number_size, currentRunner);
     }
+
     for (int i = 0; i <= steps; ++i)
     {
         branches[position] = 0;
@@ -257,6 +265,8 @@ void OFI(mpz_t& x, mpz_t& y, mpz_t& diff, mpz_t& number, mpz_t results[MAX_XY_SI
 void OFI_L(mpz_t& x, mpz_t& y, mpz_t& diff, mpz_t& number, mpz_t results[MAX_XY_SIZE],unsigned int &xy_size,
          unsigned int position, unsigned int branches[MAX_N_SIZE], Runner &currentRunner)
 {
+    if(printouts){std::cout << "\nOFI_L called on position: " << position;}
+
     unsigned int steps = xy_size - mpz_sizeinbase(y, 2);
     mpz_set(results[position], results[position - 1]);
     for (int i = 0; i < steps; ++i)
@@ -276,6 +286,7 @@ void OFI_L(mpz_t& x, mpz_t& y, mpz_t& diff, mpz_t& number, mpz_t results[MAX_XY_
 //        std::cout << printNumber(x) << " * " << printNumber(y) << " = " << printNumber(results[xy_size]) << std::endl;
         addResult(x, y, diff, number, xy_size, currentRunner.number_size, currentRunner);
     }
+
     for (int i = 0; i <= steps; ++i)
     {
         branches[position] = 0;
@@ -291,19 +302,36 @@ void OFI_L(mpz_t& x, mpz_t& y, mpz_t& diff, mpz_t& number, mpz_t results[MAX_XY_
 void OFI_R(mpz_t& x, mpz_t& y, mpz_t& diff, mpz_t& number, mpz_t results[MAX_XY_SIZE],unsigned int &xy_size,
            unsigned int position, unsigned int branches[MAX_N_SIZE], Runner &currentRunner)
 {
-    unsigned int steps = xy_size - mpz_sizeinbase(y, 2);
+    unsigned int steps = xy_size - mpz_sizeinbase(x, 2);
     mpz_set(results[position], results[position - 1]);
+    if(printouts){std::cout << "\nOFI_R called on position: " << position;
+        std::cout << "\nInitial number: ";
+        gmp_printf(mpz_get_str (buffer, 2, results[position]));}
+
+    if(printouts){std::cout << "\nInitial x: ";
+        gmp_printf(mpz_get_str (buffer, 2, x));
+        std::cout << "\nInitial y: ";
+        gmp_printf(mpz_get_str (buffer, 2, y));}
+
     for (int i = 0; i < steps; ++i)
     {
         if ((branches[position] & 0b11) == 0b10)
         {
-            mpz_mul_2exp(diff, y, position);
+            mpz_mul_2exp(diff, x, position);
             mpz_add(results[xy_size], results[xy_size], diff);
-            mpz_setbit(x, position);
+            mpz_setbit(y, position);
         }
         ++position;
         getNodeTypeRR(results[xy_size], number, position, branches);
     }
+    if(printouts){std::cout << "\nFinal number: ";
+        gmp_printf(mpz_get_str (buffer, 2, results[xy_size]));
+        std::cout << "\nFinal x: ";
+        gmp_printf(mpz_get_str (buffer, 2, x));
+        std::cout << "\nFinal y: ";
+        gmp_printf(mpz_get_str (buffer, 2, y));
+        std::cout << "\n";}
+
     if (mpz_cmp(number, results[xy_size]) == 0)
     {
         addResult(x, y, diff, number, xy_size, currentRunner.number_size, currentRunner);
@@ -312,8 +340,7 @@ void OFI_R(mpz_t& x, mpz_t& y, mpz_t& diff, mpz_t& number, mpz_t results[MAX_XY_
     {
         branches[position] = 0;
         --position;
-        mpz_clrbit(x, position);
-
+        mpz_clrbit(y, position);
     }
 
     mpz_set_ui(results[xy_size], 1);
@@ -324,6 +351,7 @@ void checkResultL(mpz_t& x, mpz_t& y, mpz_t& diff, mpz_t& number, mpz_t results[
                  unsigned int &xy_size, const unsigned int position, unsigned int branches[MAX_N_SIZE],
                  unsigned int &number_size, Runner &currentRunner)
 {
+
     if(mpz_tstbit(results[position - 1], number_size) || mpz_tstbit(results[position - 1], number_size + 1))
     {
         return;
@@ -355,10 +383,9 @@ void checkResultL(mpz_t& x, mpz_t& y, mpz_t& diff, mpz_t& number, mpz_t results[
     {
         OFI_L(x, y, diff, number, results, xy_size, position, branches, currentRunner);
         if(xy_size == 0){return;}
-        OFI(y, x, diff, number, results, xy_size, position, branches, currentRunner);
+        OFI_L(y, x, diff, number, results, xy_size, position, branches, currentRunner);
 //        std::cout << "Checkpoint 4 branch XY" << std::endl;
     }
-
 }
 
 void checkResultR(mpz_t& x, mpz_t& y, mpz_t& diff, mpz_t& number, mpz_t results[MAX_XY_SIZE],
@@ -386,11 +413,11 @@ void checkResultR(mpz_t& x, mpz_t& y, mpz_t& diff, mpz_t& number, mpz_t results[
         return;
     } else if ((branches[xy_size - 1] & 0b11) == 0b01)
     {
-        OFI_R(x, y, diff, number, results, xy_size, position, branches, currentRunner);
+        OFI_R(y, x, diff, number, results, xy_size, position, branches, currentRunner);
 //        std::cout << "Checkpoint 4 branch X" << std::endl;
     } else if ((branches[xy_size - 1] & 0b11) == 0b10)
     {
-        OFI_R(y, x, diff, number, results, xy_size, position, branches, currentRunner);
+        OFI_R(x, y, diff, number, results, xy_size, position, branches, currentRunner);
 //        std::cout << "Checkpoint 4 branch Y" << std::endl;
     } else if ((branches[xy_size - 1] & 0b11) == 0b00)
     {
@@ -496,7 +523,7 @@ void   widthIterateAllocator (unsigned int strategy, Runner *threads, unsigned i
             widthStrategicIterator = &widthIterateLR;
             depthStrategicIterator = &depthIterateLR;
             getStrategicNodeType   = &getNodeTypeLR;
-            checkStrategicResult   = &checkResultR;
+            checkStrategicResult   = &checkResultL;
             break;
         case RL:
 //            std::cout << "Selected strategy: Equal Right - Opposite Left" << std::endl;
@@ -510,15 +537,14 @@ void   widthIterateAllocator (unsigned int strategy, Runner *threads, unsigned i
             widthStrategicIterator = &widthIterateRR;
             depthStrategicIterator = &depthIterateRR;
             getStrategicNodeType   = &getNodeTypeRR;
-            checkStrategicResult   = &checkResultR;
+            checkStrategicResult   = &checkResultL;
             break;
         default:
             std::cout << "Unknown strategy selected" << std::endl;
             return;
     }
     if(position < xy_size) {
-
-        getNodeType(number, results[position - 1], position, branches);
+        getStrategicNodeType(number, results[position - 1], position, branches);
         if ((branches[position] == equalLeft) ||
             (branches[position] == equalRight))
         {
@@ -527,7 +553,7 @@ void   widthIterateAllocator (unsigned int strategy, Runner *threads, unsigned i
             if(thread_ID  < runnerNumber){
                 std::cout << "Budded identical branch" << std::endl;
                 ++thread_ID;
-                branches[position] = branches[position] ^ 0b10000;
+                branches[position] = branches[position] & 0b11101111;
 //                threads[runnerIndex].identical = cloneThread(threads[thread_ID], threads[runnerIndex], position);
 
                 resetXY(x, y, position);
@@ -537,7 +563,8 @@ void   widthIterateAllocator (unsigned int strategy, Runner *threads, unsigned i
                 widthIterateAllocator(strategy, threads, thread_ID, runnerNumber, position, newNumber);
                 resetXY(x, y, position);
             }else{
-//                std::cout << "Linear identical branch" << std::endl;
+                if(printouts){std::cout << "Linear identical branch" << std::endl;}
+
                 widthStrategicIterator(x, y, diff, number, results, xy_size, position + 1,
                                        branches, number_size, threads[thread_ID]);
                 resetXY(x, y, position);
@@ -549,23 +576,22 @@ void   widthIterateAllocator (unsigned int strategy, Runner *threads, unsigned i
                                        branches, number_size, threads[thread_ID]);
                 resetXY(x, y, position);
             }
-        } else if ((branches[position] == oppositeLeft) ||
-                   (branches[position] == oppositeRight))
-        {
+        } else {
             if(thread_ID < runnerNumber)
             {
                 std::cout << "Budding opposite branch" << std::endl;
+
                 branches[position] = branches[position] & 0b1111;
                 depthIterateAllocator (x, y, diff, number,
                                        results, xy_size, position, branches, number_size, strategy,
                                        threads, thread_ID, runnerNumber, newNumber);
-//                branches[position] = branches[position] >> 2;
             }else{
-//                std::cout << "Linear opposite branch" << std::endl;
+                if(printouts){std::cout << "Linear opposite branch" << "\n";
+                    std::cout << "Initial branch: " << branches[position] << "\n";}
+
                 branches[position] = branches[position] & 0b1111;
                 depthStrategicIterator (x, y, diff, number, results, xy_size, position,
                                         branches, number_size, threads[thread_ID]);
-//                branches[position] = branches[position] >> 2;
             }
         }
 
@@ -579,9 +605,12 @@ void   widthIterateAllocator (unsigned int strategy, Runner *threads, unsigned i
     {
         if(factor.left == nullptr)
         {
-//            gmp_printf("Factor %Zd selected", factor.number);
-//            getchar();
-//            Result &targetNode = factor;
+            if(printouts)
+            {
+                gmp_printf("Factor %Zd selected", factor.number);
+                getchar();
+            }
+
             widthIterateAllocator(strategy, threads, thread_ID, runnerNumber, position, factor);
         }
     }
@@ -589,6 +618,20 @@ void   widthIterateAllocator (unsigned int strategy, Runner *threads, unsigned i
 }
 bool findWork (Runner *runners, unsigned int runnerNumber, unsigned int runnerID)
 {
+    ///check for results with no numbers assigned
+    for(Result &factor: unique_factors)
+    {
+        if(factor.left == nullptr)
+        {
+            if(printouts)
+            {
+                gmp_printf("Factor %Zd selected", factor.number);
+                getchar();
+            }
+            ///Remember factor
+        }
+    }
+    ///Check if there are threads working on the number
     bool identical = false;
     for(int i = 0; i < MAX_XY_SIZE; ++i)
     {
@@ -622,7 +665,7 @@ void   depthIterateAllocator (mpz_t& x, mpz_t& y, mpz_t& diff, mpz_t& number, mp
             break;
         case LR:
             strategicIterator = &depthIterateLR;
-            checkStrategicResult   = &checkResultR;
+            checkStrategicResult   = &checkResultL;
             break;
         case RL:
             strategicIterator = &depthIterateRL;
@@ -630,7 +673,7 @@ void   depthIterateAllocator (mpz_t& x, mpz_t& y, mpz_t& diff, mpz_t& number, mp
             break;
         case RR:
             strategicIterator = &depthIterateRR;
-            checkStrategicResult   = &checkResultR;
+            checkStrategicResult   = &checkResultL;
             break;
         default:
             std::cout << "Unknown strategy selected" << std::endl;
@@ -656,15 +699,6 @@ void   depthIterateAllocator (mpz_t& x, mpz_t& y, mpz_t& diff, mpz_t& number, mp
         checkStrategicResult(x, y, diff, number, results, xy_size, position,
                     branches, number_size, threads[thread_ID]);
     }
-
-//    if(findWork(threads, runnerNumber, thread_ID))
-//    {
-//        widthIterateAllocator(strategy, threads, thread_ID, runnerNumber, position, newNumber);
-//    }else{
-//        depthIterateAllocator (x, y, diff, number,
-//                               results, xy_size, position, branches, number_size, strategy,
-//                               threads, thread_ID, runnerNumber, newNumber);
-//    }
 }
 
 void    addResult  (mpz_t& x, mpz_t& y, mpz_t& diff, mpz_t& number, unsigned int &xy_size,
@@ -729,19 +763,4 @@ void    addResult  (mpz_t& x, mpz_t& y, mpz_t& diff, mpz_t& number, unsigned int
             currentRunner.targetNumber->right = currentRunner.targetNumber;
         }
     }
-//    gmp_printf("Factor %Zd assigned children %Zd and %Zd \n",
-//               currentRunner.targetNumber, currentRunner.targetNumber->left->number,
-//               currentRunner.targetNumber->right->number);
-//    std::cout << "Unique factors: \n" ;
-//    for(Result factor: unique_factors){
-//        gmp_printf("%Zd\n", factor.number);
-//        if(factor.left != nullptr)
-//        {
-//            gmp_printf("Left child: %Zd \n", factor.left->number);
-//            gmp_printf("Right child: %Zd \n", factor.right->number);
-//            gmp_printf("\n");
-//
-//        }
-
-//    }
 }
