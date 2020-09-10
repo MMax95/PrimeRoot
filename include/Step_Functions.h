@@ -40,7 +40,6 @@ struct Result{
     mpz_t number;
     Result *left;
     Result *right;
-//    Result *self;
     Result()
     {
         mpz_int(this->number);
@@ -75,8 +74,6 @@ struct Runner{
     unsigned int xy_size;
     threadState state;
     bool identical = false;
-
-    unsigned int uniqueXY = 0b11; /// X = 0b10, Y = 0b01
 
     Result *targetNumber;
     Result *tempX;
