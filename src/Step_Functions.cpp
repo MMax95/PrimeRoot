@@ -9,11 +9,11 @@ list<Result>::iterator it = unique_factors.begin();
 ///Single functions
 void        getNodeType(const mpz_t& number, const mpz_t& result, unsigned int position, unsigned int branches[MAX_XY_SIZE])
 {
-    if(mpz_tstbit(number, position) ^ mpz_tstbit(result, position))
+    if(mpz_tstbit(number, position) == mpz_tstbit(result, position))
     {
-        branches[position] = 0b11001;
-    }else{
         branches[position] = 0b11100;
+    }else{
+        branches[position] = 0b11001;
     }
 //        branches[position] =  (mpz_tstbit(number, position) ^ mpz_tstbit(result, position)) * 0b11001
 //                           + !(mpz_tstbit(number, position) ^ mpz_tstbit(result, position)) * 0b11100;
@@ -22,45 +22,44 @@ void        getNodeType(const mpz_t& number, const mpz_t& result, unsigned int p
 
 void        getNodeTypeLL(const mpz_t& number, const mpz_t& result, unsigned int position, unsigned int branches[MAX_XY_SIZE])
 {
-    ///equalLeft_oppositeLeft
-    if(mpz_tstbit(number, position) ^ mpz_tstbit(result, position))
+    if(mpz_tstbit(number, position) == mpz_tstbit(result, position))
     {
-        branches[position] = 0b11001;
-    }else{
         branches[position] = 0b11100;
+    }else{
+        branches[position] = 0b11001;
     }
 }
 
 void        getNodeTypeLR(const mpz_t& number, const mpz_t& result, unsigned int position, unsigned int branches[MAX_XY_SIZE])
 {
     ///equalLeft_oppositeRight
-    if(mpz_tstbit(number, position) ^ mpz_tstbit(result, position))
+    if(mpz_tstbit(number, position) == mpz_tstbit(result, position))
     {
-        branches[position] = 0b10110;
-    }else{
         branches[position] = 0b11100;
+    }else{
+        branches[position] = 0b10110;
     }
 }
 
 void        getNodeTypeRL(const mpz_t& number, const mpz_t& result, unsigned int position, unsigned int branches[MAX_XY_SIZE])
 {
     ///equalRight_oppositeLeft
-    if(mpz_tstbit(number, position) ^ mpz_tstbit(result, position))
+    if(mpz_tstbit(number, position) == mpz_tstbit(result, position))
     {
-        branches[position] = 0b11001;
-    }else{
         branches[position] = 0b10011;
+    }else{
+        branches[position] = 0b11001;
     }
 }
 
 void        getNodeTypeRR(const mpz_t& number, const mpz_t& result, unsigned int position, unsigned int branches[MAX_XY_SIZE])
 {
     ///equalRight_oppositeRight
-    if(mpz_tstbit(number, position) ^ mpz_tstbit(result, position))
+    if(mpz_tstbit(number, position) == mpz_tstbit(result, position))
     {
-        branches[position] = 0b10110;
-    }else{
         branches[position] = 0b10011;
+    }else{
+        branches[position] = 0b10110;
     }
 }
 void         makeResult(mpz_t& result, const mpz_t& previousResult, unsigned int position, unsigned int branchType, mpz_t& x, mpz_t& y, mpz_t& diff)
