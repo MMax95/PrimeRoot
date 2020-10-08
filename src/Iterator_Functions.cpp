@@ -269,14 +269,13 @@ void OFI(mpz_t& bigger, mpz_t& smaller, mpz_t& diff, mpz_t& number, mpz_t result
 
     for (int i = 0; i < steps; ++i)
     {
-        if (branches[position] & 0b11)
+        if (mpz_tstbit(number, position) ^ mpz_tstbit(results[xy_size], position))
         {
             mpz_mul_2exp(diff, smaller, position);
             mpz_add(results[xy_size], results[xy_size], diff);
             mpz_setbit(bigger, position);
         }
         ++position;
-        branches[position] = (mpz_tstbit(number, position) ^ mpz_tstbit(results[xy_size], position));
     }
 
     if(PRINTOUTS){std::cout << "\nFinal number: ";
