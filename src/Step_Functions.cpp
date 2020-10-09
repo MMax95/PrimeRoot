@@ -121,7 +121,7 @@ char*        readResults(Result *root, char charBuffer[1024])
 //        getchar();
         char temp_char[MAX_N_SIZE];
         mpz_get_str(temp_char, 10, root->number);
-        strcat(charBuffer, ", ");
+        strcat(charBuffer, " * ");
         strcat(charBuffer, temp_char);
     }
     return charBuffer;
