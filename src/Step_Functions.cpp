@@ -4,22 +4,8 @@
 
 #include "../include/Step_Functions.h"
 list<Result> unique_factors;
-list<Result>::iterator it = unique_factors.begin();
 
 ///Single functions
-void        getNodeType(const mpz_t& number, const mpz_t& result, unsigned int position, unsigned int branches[MAX_XY_SIZE])
-{
-    if(mpz_tstbit(number, position) == mpz_tstbit(result, position))
-    {
-        branches[position] = 0b11100;
-    }else{
-        branches[position] = 0b11001;
-    }
-//        branches[position] =  (mpz_tstbit(number, position) ^ mpz_tstbit(result, position)) * 0b11001
-//                           + !(mpz_tstbit(number, position) ^ mpz_tstbit(result, position)) * 0b11100;
-///Branch-less variant yielded a 5% decrease in speed
-}
-
 void        getNodeTypeLL(const mpz_t& number, const mpz_t& result, unsigned int position, unsigned int branches[MAX_XY_SIZE])
 {
     if(mpz_tstbit(number, position) == mpz_tstbit(result, position))
@@ -71,7 +57,7 @@ void         makeResult(mpz_t& result, const mpz_t& previousResult, unsigned int
             return;
         case 0b11:
             mpz_set(result, previousResult);
-            mpn_lshift(diff->_mp_d, diff->_mp_d, diff->_mp_size, position);
+            mpz_mul_2exp(diff, diff, position);
             mpz_add(diff, x, diff);
             mpz_add(diff, y, diff);
             mpz_mul_2exp(diff, diff, position);
@@ -92,8 +78,6 @@ void         makeResult(mpz_t& result, const mpz_t& previousResult, unsigned int
             mpz_div_2exp(y, y, position);
             return;
     }
-
-
 }
 
 void         setXY(mpz_t& x, mpz_t& y, unsigned int position, unsigned int branchType)
@@ -110,15 +94,11 @@ void         resetXY(mpz_t& x, mpz_t& y, unsigned int position)
 
 char*        readResults(Result *root, char charBuffer[1024])
 {
-//    gmp_printf("Current node %Zd \n", root->number);
     if(mpz_cmp_ui(root->left->number, 1))
     {
-//        std::cout << "Current string: \n" << charBuffer << "\n";
-//        getchar();
         readResults(root->left, charBuffer);
         readResults(root->right, charBuffer);
     }else{
-//        getchar();
         char temp_char[MAX_N_SIZE];
         mpz_get_str(temp_char, 10, root->number);
         strcat(charBuffer, " * ");

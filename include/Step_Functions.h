@@ -33,7 +33,8 @@ enum StrategyType{
     LL   = 0b11001001, ///flipped: 0b00011, offloaded: 0b01100
     LR   = 0b11000110, ///flipped: 0b01100, offloaded: 0b00011
     RL   = 0b00111001, ///flipped: 0b00110, offloaded: 0b01001
-    RR   = 0b00110110  ///flipped: 0b01001, offloaded: 0b00110
+    RR   = 0b00110110, ///flipped: 0b01001, offloaded: 0b00110
+    SH   = 0b10101010
 };
 
 struct Result{

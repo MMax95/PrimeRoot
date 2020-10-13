@@ -4,13 +4,6 @@
 
 #include "../include/Iterator_Functions.h"
 
-char* buffer;
-mpz_t tempContainer;
-char *printNumber(mpz_t& number)
-{
-    return mpz_get_str(buffer, 10, number);
-}
-
 void   widthIterateLL (mpz_t& x, mpz_t& y, mpz_t& diff, mpz_t& number, mpz_t results[MAX_XY_SIZE], unsigned int &xy_size,
                        const unsigned int position, unsigned int branches[MAX_N_SIZE], unsigned int &number_size, Runner &currentRunner)
 {
@@ -31,7 +24,7 @@ void   widthIterateLL (mpz_t& x, mpz_t& y, mpz_t& diff, mpz_t& number, mpz_t res
             branches[position] = branches[position] & 0b1111;
             depthIterateLL(x, y, diff, number, results, xy_size, position, branches, number_size, currentRunner);
         }
-    }else if(position < number_size)
+    }else if(position == xy_size)
     {
         checkResult(x, y, diff, number, results, xy_size, position, branches, number_size, currentRunner);
     }
@@ -130,7 +123,10 @@ void   depthIterateLL (mpz_t& x, mpz_t& y, mpz_t& diff, mpz_t& number, mpz_t res
         }
         resetXY(x, y, position);                                                                       /// resets X[position] and Y[position]
     } else if (position <= number_size)
-    {
+    { ///Important notice! position must be smaller or EQUAL to number size
+    ///This is important, since a prime factor can be the size 2, thus creating a min size R of 4. If the position based
+    ///iterator stopper will be kept, the <= check is mandatory to prevent extra work, while allowing the discovery of the
+    ///small sized primes
         checkResult(x, y, diff, number, results, xy_size, position, branches, number_size, currentRunner);
     }
 }
@@ -196,126 +192,35 @@ void   depthIterateRR (mpz_t& x, mpz_t& y, mpz_t& diff, mpz_t& number, mpz_t res
     }
 }
 
-///branchless ofi
-//void OFI(mpz_t& bigger, mpz_t& smaller, mpz_t& diff, mpz_t& number, mpz_t results[MAX_XY_SIZE],unsigned int &xy_size,
-//         unsigned int position, unsigned int branches[MAX_N_SIZE], Runner &currentRunner)
-//{
-//    unsigned int steps = xy_size - mpz_sizeinbase(smaller, 2);
-//    mpz_set(results[position], results[position - 1]);
-//    for (int i = 0; i < steps; ++i)
-//    {
-//        if (mpz_tstbit(number, position) ^ mpz_tstbit(results[xy_size], position))
-//        {
-//            mpz_mul_2exp(diff, smaller, position);
-//            mpz_add(results[xy_size], results[xy_size], diff);
-//            mpz_setbit(bigger, position);
-//        }
-//        ++position;
-//    }
-//
-//    if (mpz_cmp(number, results[xy_size]) == 0)
-//    {
-//        addResult(bigger, smaller, diff, number, xy_size, currentRunner.number_size, currentRunner);
-//    }
-//
-//    for (int i = 0; i < steps; ++i)
-//    {
-//        --position;
-//        mpz_clrbit(bigger, position);
-//    }
-//
-//    mpz_set_ui(results[position], 1);
-//    mpz_set_ui(diff, 1);
-//}
-
-//mod ofi
-void OFI(mpz_t& bigger, mpz_t& smaller, mpz_t& diff, mpz_t& number, mpz_t results[MAX_XY_SIZE],unsigned int &xy_size,
-         unsigned int position, unsigned int branches[MAX_N_SIZE], Runner &currentRunner)
-{
-    //Since this step will only add multiples of 'smaller' to the number
-    //we can presume that the result of the iteration will be
-    //previous_result + multiple * y = N -> N - previous_result = multiple * Y
-    //since the multiple will be left shifted, we can reduce the computation time
-    //by right shifting it
-    mpz_sub(results[position], number, results[position - 1]);
-    mpz_mod(diff, results[position], smaller);
-    if (mpz_cmp_ui(diff, 0) == 0)
-    {
-        mpz_div(diff, number, smaller);
-        addResult(diff, smaller, diff, number, xy_size, currentRunner.number_size, currentRunner);
-    }
-
-    mpz_set_ui(results[position], 1);
-    mpz_set_ui(diff, 1);
-}
-
-/////legacy ofi
-//void OFI(mpz_t& bigger, mpz_t& smaller, mpz_t& diff, mpz_t& number, mpz_t results[MAX_XY_SIZE],unsigned int &xy_size,
-//         unsigned int position, unsigned int branches[MAX_N_SIZE], Runner &currentRunner)
-//{
-//    unsigned int steps = xy_size - mpz_sizeinbase(smaller, 2);
-//    mpz_set(results[position], results[position - 1]);
-//    for (int i = 0; i < steps; ++i)
-//    {
-//        if (branches[position] & 0b11)
-//        {
-//            mpz_mul_2exp(diff, smaller, position);
-//            mpz_add(results[xy_size], results[xy_size], diff);
-//            mpz_setbit(bigger, position);
-//        }
-//        ++position;
-//        branches[position] = (mpz_tstbit(number, position) ^ mpz_tstbit(results[xy_size], position));
-//    }
-//
-//    if (mpz_cmp(number, results[xy_size]) == 0)
-//    {
-//        addResult(bigger, smaller, diff, number, xy_size, currentRunner.number_size, currentRunner);
-//    }
-//
-//    for (int i = 0; i < steps; ++i)
-//    {
-//        --position;
-//        mpz_clrbit(bigger, position);
-//    }
-//
-//    mpz_set_ui(results[position], 1);
-//    mpz_set_ui(diff, 1);
-//}
-
 void checkResult(mpz_t& x, mpz_t& y, mpz_t& diff, mpz_t& number, mpz_t results[MAX_XY_SIZE],
                  unsigned int &xy_size, const unsigned int position, unsigned int branches[MAX_N_SIZE],
-                 unsigned int &number_size, Runner &currentRunner)
-{
+                 unsigned int &number_size, Runner &currentRunner) {
 
-    if(mpz_tstbit(results[position - 1], number_size) || mpz_tstbit(results[position - 1], number_size + 1))
-    {
+    if (mpz_tstbit(results[position - 1], number_size)) {
         return;
     }
-    int compared_result = mpn_cmp(results[position - 1]->_mp_d, number->_mp_d, number->_mp_size);
-    if (compared_result == 0)
-    {
-        addResult(x, y, diff, number, xy_size, number_size, currentRunner);
-        return;
-    } else if (compared_result > 0)
-    {
-        return;
-    } else if ((branches[xy_size - 1] & 0b11) == 0b11)
-    {
-        return;
-    } else if ((branches[xy_size    ] & 0b11) == 0b11)
-    {
-        return;
-    } else if ((branches[xy_size - 1] & 0b11) == 0b01)
-    {
-        OFI(x, y, diff, number, results, xy_size, position, branches, currentRunner);
-    } else if ((branches[xy_size - 1] & 0b11) == 0b10)
-    {
-        OFI(y, x, diff, number, results, xy_size, position, branches, currentRunner);
-    } else if ((branches[xy_size - 1] & 0b11) == 0b00)
-    {
-        OFI(x, y, diff, number, results, xy_size, position, branches, currentRunner);
-        if(xy_size == 0){return;}
-        OFI(y, x, diff, number, results, xy_size, position, branches, currentRunner);
+    mpz_sub(results[position], number, results[position - 1]);
+    switch (mpz_sgn(results[position])) {
+        case 1:
+            mpz_div_2exp(results[position], results[position], position);
+            if(mpz_divisible_p(results[position], x)){
+                mpz_divexact(diff, results[position], x);
+                mpz_mul_2exp(diff, diff, position);
+                mpz_add(diff, diff, y);
+                addResult(x, diff, diff, number, xy_size, number_size, currentRunner);
+                if (xy_size == 0) { return; }
+            }
+            if(mpz_divisible_p(results[position], y)){
+                mpz_divexact(diff, results[position], y);
+                mpz_mul_2exp(diff, diff, position);
+                mpz_add(diff, x, diff);
+                addResult(diff, y, diff, number, xy_size, number_size, currentRunner);
+            }
+            mpz_set_ui(diff, 1);
+            return;
+        case 0:
+            addResult(x, y, diff, number, xy_size, number_size, currentRunner);
+            return;
     }
 }
 
@@ -411,6 +316,12 @@ void   widthIterateAllocator (unsigned int strategy, Runner *threads, unsigned i
             widthStrategicIterator = &widthIterateRR;
             depthStrategicIterator = &depthIterateRR;
             getStrategicNodeType   = &getNodeTypeRR;
+            break;
+        case SH:
+            widthStrategicIterator = &squareRoot;
+            depthStrategicIterator = &squareRoot;
+            getStrategicNodeType   = &getNodeTypeLL;
+            addResult(x, y, diff, number, xy_size, number_size, threads[thread_ID]);
             break;
         default:
             std::cout << "Unknown strategy selected" << std::endl;
@@ -508,7 +419,6 @@ bool    cloneThread(Runner sourceThread, Runner destinationThread, int position)
 void    addResult  (mpz_t& x, mpz_t& y, mpz_t& diff, mpz_t& number, unsigned int &xy_size,
                     unsigned int &number_size, Runner &currentRunner)
 {
-
     using namespace boost::container;
     int xComp = mpz_cmp_ui(x, 1);
     int yComp = mpz_cmp_ui(y, 1);
@@ -557,5 +467,28 @@ void    addResult  (mpz_t& x, mpz_t& y, mpz_t& diff, mpz_t& number, unsigned int
             currentRunner.targetNumber->left = &unique_factors.front();
             currentRunner.targetNumber->right = currentRunner.targetNumber;
         }
+    }
+}
+
+void squareRoot (mpz_t& x, mpz_t& y, mpz_t& diff, mpz_t& number, mpz_t results[MAX_XY_SIZE], unsigned int &xy_size,
+                 const unsigned int position, unsigned int branches[MAX_N_SIZE], unsigned int &number_size, Runner &currentRunner)
+{
+    if(position < xy_size) {
+        if (((branches[position] & 0b11) == 0b11) || ((branches[position] & 0b11) == 0b00))
+        {
+            makeResult(results[position], results[position - 1], position, branches[position], x, y, diff);
+            setXY(x, y, position, branches[position]);
+            getNodeTypeLL(number, results[position], position + 1, branches);
+            squareRoot(x, y, diff, number, results, xy_size, position + 1, branches, number_size, currentRunner);
+            if(branches[position + 1] & 0b10000)
+            {
+                branches[position + 1] = branches[position + 1] >> 2;
+                squareRoot(x, y, diff, number, results, xy_size, position + 1, branches, number_size, currentRunner);
+            }
+            resetXY(x, y, position);
+        }
+    }else if(position <= number_size)
+    {
+        checkResult(x, y, diff, number, results, xy_size, position, branches, number_size, currentRunner);
     }
 }

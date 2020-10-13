@@ -9,6 +9,9 @@
 
 #include "Step_Functions.h"
 
+void   squareRoot              (mpz_t& x, mpz_t& y, mpz_t& diff, mpz_t& number, mpz_t results[MAX_XY_SIZE], unsigned int &xy_size,
+                                const unsigned int position, unsigned int branches[MAX_N_SIZE], unsigned int &number_size, Runner &currentRunner);
+
 void   widthIterateLL          (mpz_t& x, mpz_t& y, mpz_t& diff, mpz_t& number, mpz_t results[MAX_XY_SIZE], unsigned int &xy_size,
                                 const unsigned int position, unsigned int branches[MAX_N_SIZE], unsigned int &number_size, Runner &currentRunner);
 void   widthIterateLR          (mpz_t& x, mpz_t& y, mpz_t& diff, mpz_t& number, mpz_t results[MAX_XY_SIZE], unsigned int &xy_size,
@@ -29,8 +32,6 @@ void   depthIterateRR          (mpz_t& x, mpz_t& y, mpz_t& diff, mpz_t& number, 
 
 void   checkResult             (mpz_t& x, mpz_t& y, mpz_t& diff, mpz_t& number, mpz_t results[MAX_XY_SIZE], unsigned int &xy_size,
                                 const unsigned int position, unsigned int branches[MAX_N_SIZE], unsigned int &number_size, Runner &currentRunner);
-void   OFI                     (mpz_t& bigger, mpz_t& smaller, mpz_t& diff, mpz_t& number, mpz_t results[MAX_XY_SIZE],unsigned int &xy_size,
-                                unsigned int position, unsigned int branches[MAX_N_SIZE], Runner &currentRunner);
 
 ///Memory Functions///
 
@@ -44,3 +45,4 @@ void    findWork                (Runner *runners, unsigned int runnerNumber, uns
 bool    cloneThread             (Runner sourceThread, Runner destinationThread, int position);
 void    addResult               (mpz_t& x, mpz_t& y, mpz_t& diff, mpz_t& number, unsigned int &xy_size,
                                  unsigned int &number_size, Runner &currentRunner);
+

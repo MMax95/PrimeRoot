@@ -16,7 +16,6 @@ int main(int argc, char* argv[])
         mpz_t targetNumber;
         mpz_init_set_str(targetNumber, number_string, 10);
 
-
         mpz_t one_mpz;
         mpz_init_set_d(one_mpz, 1);
 
@@ -32,23 +31,15 @@ int main(int argc, char* argv[])
             std::string strategy = argv[2];
             StrategyType chosenStrategy;
 
-            if(strategy == "LL")
-            {
+            if      (strategy == "LL"){
                 chosenStrategy = LL;
-
-            }else if(strategy == "LR")
-            {
+            }else if(strategy == "LR"){
                 chosenStrategy = LR;
-
-            }else if(strategy == "RL")
-            {
+            }else if(strategy == "RL"){
                 chosenStrategy = RL;
-
-            }else if(strategy == "RR")
-            {
+            }else if(strategy == "RR"){
                 chosenStrategy = RR;
-
-            }else{
+            }else                     {
                 std::cout << "Unknown strategy selected" << std::endl;
                 return 3;
             }
