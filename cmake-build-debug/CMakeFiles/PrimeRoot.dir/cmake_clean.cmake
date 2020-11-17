@@ -3,6 +3,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/PrimeRoot.dir/src/Iterator_Functions.cpp.o"
   "CMakeFiles/PrimeRoot.dir/src/Memory_Functions.cpp.o"
   "CMakeFiles/PrimeRoot.dir/src/Step_Functions.cpp.o"
+  "CMakeFiles/PrimeRoot.dir/src/VB_Iterator.cpp.o"
+  "CMakeFiles/PrimeRoot.dir/src/Variable_Base.cpp.o"
   "PrimeRoot"
   "PrimeRoot.pdb"
 )

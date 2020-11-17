@@ -492,3 +492,4 @@ void squareRoot (mpz_t& x, mpz_t& y, mpz_t& diff, mpz_t& number, mpz_t results[M
         checkResult(x, y, diff, number, results, xy_size, position, branches, number_size, currentRunner);
     }
 }
+

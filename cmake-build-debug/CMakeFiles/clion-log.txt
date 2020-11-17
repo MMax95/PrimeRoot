@@ -1,7 +1,4 @@
 /snap/clion/129/bin/cmake/linux/bin/cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_C_COMPILER=/usr/bin/mpicc -DCMAKE_CXX_COMPILER=/usr/bin/mpic++ -Llibdir "  " -lboost_mpi -lboost_serialization -G "CodeBlocks - Unix Makefiles" /home/blackberry/Projects/PrimeRoot
--- Found OpenMP_C: -fopenmp  
--- Found OpenMP_CXX: -fopenmp  
--- Found OpenMP: TRUE   
 -- Configuring done
 -- Generating done
 -- Build files have been written to: /home/blackberry/Projects/PrimeRoot/cmake-build-debug

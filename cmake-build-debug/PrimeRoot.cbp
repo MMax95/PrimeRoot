@@ -98,6 +98,12 @@
 		<Unit filename="/home/blackberry/Projects/PrimeRoot/include/Step_Functions.h">
 			<Option target="PrimeRoot"/>
 		</Unit>
+		<Unit filename="/home/blackberry/Projects/PrimeRoot/include/VB_Iterator.h">
+			<Option target="PrimeRoot"/>
+		</Unit>
+		<Unit filename="/home/blackberry/Projects/PrimeRoot/include/Variable_Base.h">
+			<Option target="PrimeRoot"/>
+		</Unit>
 		<Unit filename="/home/blackberry/Projects/PrimeRoot/main.cpp">
 			<Option target="PrimeRoot"/>
 		</Unit>
@@ -108,6 +114,12 @@
 			<Option target="PrimeRoot"/>
 		</Unit>
 		<Unit filename="/home/blackberry/Projects/PrimeRoot/src/Step_Functions.cpp">
+			<Option target="PrimeRoot"/>
+		</Unit>
+		<Unit filename="/home/blackberry/Projects/PrimeRoot/src/VB_Iterator.cpp">
+			<Option target="PrimeRoot"/>
+		</Unit>
+		<Unit filename="/home/blackberry/Projects/PrimeRoot/src/Variable_Base.cpp">
 			<Option target="PrimeRoot"/>
 		</Unit>
 		<Unit filename="/home/blackberry/Projects/PrimeRoot/CMakeLists.txt">

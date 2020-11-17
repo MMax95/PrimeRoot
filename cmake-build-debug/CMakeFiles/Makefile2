@@ -94,12 +94,12 @@ clean: CMakeFiles/PrimeRoot.dir/clean
 CMakeFiles/PrimeRoot.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/PrimeRoot.dir/build.make CMakeFiles/PrimeRoot.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/PrimeRoot.dir/build.make CMakeFiles/PrimeRoot.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/blackberry/Projects/PrimeRoot/cmake-build-debug/CMakeFiles --progress-num=1,2,3,4,5 "Built target PrimeRoot"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/blackberry/Projects/PrimeRoot/cmake-build-debug/CMakeFiles --progress-num=1,2,3,4,5,6,7 "Built target PrimeRoot"
 .PHONY : CMakeFiles/PrimeRoot.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/PrimeRoot.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/blackberry/Projects/PrimeRoot/cmake-build-debug/CMakeFiles 5
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/blackberry/Projects/PrimeRoot/cmake-build-debug/CMakeFiles 7
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/PrimeRoot.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/blackberry/Projects/PrimeRoot/cmake-build-debug/CMakeFiles 0
 .PHONY : CMakeFiles/PrimeRoot.dir/rule

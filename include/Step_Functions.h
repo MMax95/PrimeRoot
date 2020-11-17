@@ -11,6 +11,8 @@
 #define MAX_N_SIZE 1024
 #define MAX_XY_SIZE MAX_N_SIZE / 2 + 1
 #define THREAD_NUMER 1
+#define TABLE_SIZE 8
+#define ALU_SIZE 64
 
 using namespace boost::container;
 using namespace boost::multiprecision;

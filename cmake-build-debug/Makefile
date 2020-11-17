@@ -251,6 +251,60 @@ src/Step_Functions.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/PrimeRoot.dir/build.make CMakeFiles/PrimeRoot.dir/src/Step_Functions.cpp.s
 .PHONY : src/Step_Functions.cpp.s
 
+src/VB_Iterator.o: src/VB_Iterator.cpp.o
+
+.PHONY : src/VB_Iterator.o
+
+# target to build an object file
+src/VB_Iterator.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/PrimeRoot.dir/build.make CMakeFiles/PrimeRoot.dir/src/VB_Iterator.cpp.o
+.PHONY : src/VB_Iterator.cpp.o
+
+src/VB_Iterator.i: src/VB_Iterator.cpp.i
+
+.PHONY : src/VB_Iterator.i
+
+# target to preprocess a source file
+src/VB_Iterator.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/PrimeRoot.dir/build.make CMakeFiles/PrimeRoot.dir/src/VB_Iterator.cpp.i
+.PHONY : src/VB_Iterator.cpp.i
+
+src/VB_Iterator.s: src/VB_Iterator.cpp.s
+
+.PHONY : src/VB_Iterator.s
+
+# target to generate assembly for a file
+src/VB_Iterator.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/PrimeRoot.dir/build.make CMakeFiles/PrimeRoot.dir/src/VB_Iterator.cpp.s
+.PHONY : src/VB_Iterator.cpp.s
+
+src/Variable_Base.o: src/Variable_Base.cpp.o
+
+.PHONY : src/Variable_Base.o
+
+# target to build an object file
+src/Variable_Base.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/PrimeRoot.dir/build.make CMakeFiles/PrimeRoot.dir/src/Variable_Base.cpp.o
+.PHONY : src/Variable_Base.cpp.o
+
+src/Variable_Base.i: src/Variable_Base.cpp.i
+
+.PHONY : src/Variable_Base.i
+
+# target to preprocess a source file
+src/Variable_Base.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/PrimeRoot.dir/build.make CMakeFiles/PrimeRoot.dir/src/Variable_Base.cpp.i
+.PHONY : src/Variable_Base.cpp.i
+
+src/Variable_Base.s: src/Variable_Base.cpp.s
+
+.PHONY : src/Variable_Base.s
+
+# target to generate assembly for a file
+src/Variable_Base.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/PrimeRoot.dir/build.make CMakeFiles/PrimeRoot.dir/src/Variable_Base.cpp.s
+.PHONY : src/Variable_Base.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -272,6 +326,12 @@ help:
 	@echo "... src/Step_Functions.o"
 	@echo "... src/Step_Functions.i"
 	@echo "... src/Step_Functions.s"
+	@echo "... src/VB_Iterator.o"
+	@echo "... src/VB_Iterator.i"
+	@echo "... src/VB_Iterator.s"
+	@echo "... src/Variable_Base.o"
+	@echo "... src/Variable_Base.i"
+	@echo "... src/Variable_Base.s"
 .PHONY : help
 
 
