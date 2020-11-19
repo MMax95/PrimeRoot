@@ -19,20 +19,20 @@ private:
     ///Local variables
 
     ///!!!!! uint8_t_t8 should be addresed with template metaprogramming
-    uint8_t nSize = 0;
+    uint nSize = 0;
     uint8_t xySize = 0;
     uint8_t blocksPerLimb = 0;
-    uint8_t X0 = 0;
-    uint8_t Y0 = 0;
-    unsigned long long baseMask = 0;
+    uint X0 = 0;
+    uint Y0 = 0;
+    uint8_t baseMask = 0;
     unsigned long long base2exp = 0;
     uint base = 0;
-    uint numberSegments[MAX_N_SIZE];
-    uint64_t *maskList;
-    uint ***modTable;
+    uint8_t numberSegments[MAX_N_SIZE];
+    mpz_t *maskList;
+    uint8_t ***modTable;
     uint branches[MAX_N_SIZE]; ///Remember the target number and the factor index
-    uint xSegments[MAX_N_SIZE];
-    uint ySegments[MAX_N_SIZE];
+    uint8_t xSegments[MAX_N_SIZE];
+    uint8_t ySegments[MAX_N_SIZE];
 
     mpz_t targetNumber;
     mpz_t temp;
@@ -44,12 +44,12 @@ private:
     int currentPosition = -1;
 
     ///Utility functions
-    uint ***generateModTable(uint ***modTable) const;
-    uint64_t *generateMaskList(uint64_t *maskList) const;
-    static bool checkModTable(uint ***modTable);
-    static bool checkMaskList(const uint8_t *maskList);
-    void generateStaticStructures(uint ***modTableDestination, uint64_t *maskListDestination);
-    bool bindStaticStructures(uint ***modTableSource, uint64_t *maskListSource);
+    uint8_t ***generateModTable(uint8_t ***modTable) const;
+    mpz_t *generateMaskList(mpz_t *maskList) const;
+    static bool checkModTable(uint8_t ***modTable);
+    static bool checkMaskList(const mpz_t *maskList);
+    void generateStaticStructures(uint8_t ***modTableDestination, mpz_t *maskListDestination);
+    bool bindStaticStructures(uint8_t ***modTableSource, mpz_t *maskListSource);
     uint8_t segmentNumber(mpz_t number);
     static bool addResult(mpz_t xSolution, mpz_t ySolution);
 
@@ -66,7 +66,7 @@ private:
 
 public:
     VB_Iterator(const char *numberString, uint8_t startingPosition, uint wanted2exp = 4,
-                uint ***generatedModTable = nullptr, uint64_t *generatedMaskList = nullptr,
+                uint8_t ***generatedModTable = nullptr, mpz_t *generatedMaskList = nullptr,
                         bool generateTables = true);
     //UI Functions
 

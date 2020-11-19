@@ -9,8 +9,8 @@ int main(int argc, char* argv[]) {
     {
         uint8_t startingPosition = 0;
         uint wanted2exp = 8;
-        uint ***modTablePointer;
-        uint64_t *maskListPointer;
+        uint8_t ***modTablePointer;
+        mpz_t *maskListPointer;
         bool generateContainersCheck = true;
 
         VB_Iterator currentIterator(argv[1], startingPosition, wanted2exp, modTablePointer, maskListPointer, generateContainersCheck);
