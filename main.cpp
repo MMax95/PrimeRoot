@@ -15,7 +15,7 @@ int main(int argc, char* argv[]) {
 
         VB_Iterator currentIterator(argv[1], startingPosition, wanted2exp, modTablePointer, maskListPointer, generateContainersCheck);
         std::cout << "Checkpoint main" << std::endl;
-        currentIterator.testTables();
+//        currentIterator.testTables();
         currentIterator.startIteration(0);
 
     }else{

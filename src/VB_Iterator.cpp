@@ -9,7 +9,13 @@ bool DEPTH_ITERATOR_DEBUG = false;
 bool INIT_ITERATOR_DEBUG = false;
 bool RESULT_DEBUG = false;
 bool CHECK_DEBUG = false;
+bool USER_STEP = false;
 mpz_t debugContainer;
+int debugInt;
+bool step1 = false;
+bool step2 = false;
+bool FACTOR_DEBUG = false;
+
 
 ///Utility Functions
 VB_Iterator::VB_Iterator(const char numberString[1024], uint8_t startingPosition, uint wanted2exp,
@@ -37,7 +43,8 @@ VB_Iterator::VB_Iterator(const char numberString[1024], uint8_t startingPosition
                 nSize = segmentNumber(targetNumber); ///set nSize to the size of the target number in the working base
                 if(nSize > 1) ///check if the number is not 1 or 0
                 {
-                    xySize = (nSize % 2) ? (nSize / 2 + 1) : (nSize / 2); /// set the max size of X and Y
+//                    xySize = (nSize % 2) ? (nSize / 2 + 1) : (nSize / 2); /// set the max size of X and Y
+                    xySize = nSize / 2;
                     if(true)
                     {
                         std::cout << "\nBase 2 Exponent: " << (int)base2exp;
@@ -208,7 +215,7 @@ uint8_t VB_Iterator::segmentNumber(mpz_t number)
 }
 
 bool VB_Iterator::addResult(mpz_t xSolution, mpz_t ySolution){
-    gmp_printf("\nX: %Zd \n Y: %Zd \n", xSolution, ySolution);
+    gmp_printf("%Zd * %Zd \n", xSolution, ySolution);
     ///Return true if the result set is different than 1 and N
     return false;
 }
@@ -247,16 +254,13 @@ void VB_Iterator::initialIterator(int position){
             if(INIT_ITERATOR_DEBUG){
                 std::cout << "\nPosition: " << position << ". xSegment " << (uint)xSegments[position] << ". ySegment " << (uint)ySegments[position] << "\n";
                 gmp_printf("Running Result: %Zd\n\n", results[position]);
-                if(branches[position] == 13UL)
+                if(branches[position] == 53)
                 {
-                    DEPTH_ITERATOR_DEBUG = true;
-                    RESULT_DEBUG = true;
-                    CHECK_DEBUG = true;
+                    step1 = true;
                 }
             }
             if(X0 == Y0)
             {
-
                 ///do an initial check to see if the number is a perfect square - GMP implementation is faster
                 if(DEBUG_OUTPUT){
                     std::cout << "\nInitial Iterator successfully called WidthIterator" << std::endl;
@@ -290,20 +294,40 @@ void VB_Iterator::depthSubIterator(int position){
     if(DEPTH_ITERATOR_DEBUG){
         std::cout << "DepthIterator Called on position " << position << "\n";
     }
+//    if(step1)
+//    {
+////        gmp_printf("Entering result: %Zd", results[position - 1]);
+////        std::cout << "on depth " << position << "\n";
+//    }
+
     if(position < xySize) {
-        numberSegments[position] = results[position - 1]->_mp_d[0] & 0b11111111; ///to avoid using sum table, segments must be targeted on the previous result
+        numberSegments[position] = results[position - 1]->_mp_d[0] % 256; ///to avoid using sum table, segments must be targeted on the previous result
         if(DEPTH_ITERATOR_DEBUG){
-            std::cout << "Iterating target segment " << (uint)numberSegments[position] << "\n";
+            std::cout << "Iterating target segment " << (int)numberSegments[position] << "\n";
             gmp_printf("X: %Zd\n Y: %Zd\n", x, y);
         }
         for (branches[position] = 0; branches[position] < base; ++branches[position]) {///Since X and Y are not identical anymore, we have to go through all the possible branches.
             if(DEPTH_ITERATOR_DEBUG){
                 std::cout << "Branch " << branches[position] << "\n";
             }
+
         ///Critical implementation: to avoid using the sum table, the underlying 8 bit unsigned container will be used to increment X and decrement Y on every step,
         /// using the max value to loop around in a cyclic manner
             xSegments[position] = modTable[branches[position]][Y0][0];
             ySegments[position] = modTable[(uint8_t)(numberSegments[position] - branches[position])][X0][0];
+            if(step1 && (position == 1 && xSegments[position] == 3))
+            {
+                std::cout << "Iterating target segment " << (int)numberSegments[position] << " on position " << position << "\n";
+                std::cout << "Current limb: " << results[position - 1]->_mp_d[0] << "\n";
+                gmp_printf("Current Result: %Zd \nX: %Zd\n Y: %Zd\n", results[position-1] , x, y);
+                    DEPTH_ITERATOR_DEBUG = true;
+                    RESULT_DEBUG = true;
+                    CHECK_DEBUG = true;
+                    USER_STEP = true;
+                    FACTOR_DEBUG = true;
+                getchar();
+            }
+            if(USER_STEP){getchar();};
             getSubResult(xSegments[position],ySegments[position],
                          results[position], results[position - 1]);
             setFactor(xSegments[position], position, x);
@@ -313,9 +337,9 @@ void VB_Iterator::depthSubIterator(int position){
                 gmp_printf("Running result: %Zd\n\n", results[position]);
             }
             depthSubIterator(position + 1);
+            resetNode(position);
         }
         if(DEPTH_ITERATOR_DEBUG)std::cout << "Calling Depth reset" << std::endl;
-        resetNode(position);
     }else if(position == xySize){
         if(DEPTH_ITERATOR_DEBUG) {gmp_printf("Checking result\n\n");}
         checkResult(position, results[position - 1]);
@@ -361,7 +385,7 @@ void VB_Iterator::checkResult(int position, mpz_t result){
         {
             mpz_divexact(temp, result, x);
             if(CHECK_DEBUG){
-                std::cout << "\nResult found, case R divisible by X\n";
+                std::cout << "\nResult found, case R divisible by X on position " << position << "\n";
                 gmp_printf("Initial X: %Zd \n", x);
                 gmp_printf("Initial Y: %Zd \n", y);
                 gmp_printf("Initial R: %Zd \n", result);
@@ -406,20 +430,25 @@ void VB_Iterator::checkResult(int position, mpz_t result){
         return;
     }
 //    if(DEBUG_OUTPUT)std::cout << "CheckResult reset called\n";
-//    resetNode(position - 1);
+    resetNode(position - 1);
     ///This reset should not be necessary, as the number should be reset by the iterator calling the check function
 }
 
 ///Step functions
-void VB_Iterator::setFactor(uint8_t segment, uint8_t position, mpz_t factor)
+void VB_Iterator::setFactor(uint8_t segment, int position, mpz_t factor)
 {
     /////X and Y are not assigned properly due to incorrect position calculation
-    if(DEBUG_OUTPUT)gmp_printf("Factor %Zd changed to ", factor);
+    if(FACTOR_DEBUG){
+        std::cout << "Entered setFactor with position: " << position << "\n";
+        gmp_printf("Factor %Zd changed to ... \n", factor);
+    }
     mpz_set_ui(temp, segment);
-    mpz_mul_2exp(temp, temp, position * base2exp);
+    if(FACTOR_DEBUG)gmp_printf("Initial temp: %Zd \n", temp);
+    mpz_mul_2exp(temp, temp, (position * base2exp));
+    if(FACTOR_DEBUG)gmp_printf("Bit shifted  temp: %Zd \n", temp);
     mpz_add(factor, factor, temp);
     mpz_set_ui(temp, 0);
-    if(DEBUG_OUTPUT)gmp_printf("%Zd \n", factor);
+    if(FACTOR_DEBUG)gmp_printf("%Zd \n", factor);
 
 }
 
@@ -429,7 +458,7 @@ void VB_Iterator::getSubResult(uint8_t xSegment, uint8_t ySegment, mpz_t result,
     ///Build the value subtracted from previous result
     if(RESULT_DEBUG)
     {
-        std::cout << "Entering subResult. xSegment: " << xSegment << ", ySegment: "<< ySegment << "\n";
+        std::cout << "Entering subResult. xSegment: " << (int)xSegment << ", ySegment: "<< (int)ySegment << "\n";
         gmp_printf("Initial X: %Zd\nInitial Y: %Zd\nPrevious Result: %Zd\nEntering Temp: %Zd\n", x, y, previousResult, temp);
     }
     mpz_addmul_ui(temp, x, ySegment);
@@ -437,10 +466,10 @@ void VB_Iterator::getSubResult(uint8_t xSegment, uint8_t ySegment, mpz_t result,
     if(RESULT_DEBUG)
     {
         mpz_mul_ui(debugContainer, x, ySegment);
-        gmp_printf("X * ySegment: %Zd\n", debugContainer);
+        gmp_printf("%Zd * %d = %Zd\n", x, ySegment, debugContainer);
         mpz_mul_ui(debugContainer, y, xSegment);
-        gmp_printf("Y * xSegment: %Zd\n", debugContainer);
-        gmp_printf("(X*ySegment) + (Y*xSegment) = %Zd", temp);
+        gmp_printf("%Zd * %d = %Zd\n", y, xSegment, debugContainer);
+        gmp_printf("(X*ySegment) + (Y*xSegment) = %Zd\n", temp);
     }
 
     ///Since we know that we'll get a difference of 0 on the desired position, we can just right shift the results of
@@ -469,7 +498,7 @@ void VB_Iterator::resetNode(int position){
     if(DEBUG_OUTPUT)gmp_printf("%Zd\n", x);
 
     if(DEBUG_OUTPUT)gmp_printf("Number Y: %Zd reset to ",y);
-    mpz_and(y, y, maskList[position]);
+    mpz_and(y, maskList[position], y);
     if(DEBUG_OUTPUT)gmp_printf("%Zd\n", y);
 }
 
@@ -478,8 +507,16 @@ int VB_Iterator::startIteration(int strategy = 0)
 {
     if(variablesInitialized)
     {
-        ///Implement strategic iterators
+        clock_t start, end;
+        double cpu_time_used;
+        start = clock();
         initialIterator(currentPosition);
+        end = clock();
+        cpu_time_used = ((double) (end - start)) / CLOCKS_PER_SEC;
+        std::cout << cpu_time_used << "seconds for " << mpz_sizeinbase(targetNumber, 2) << "bits " << std::endl;
+
+        ///Implement strategic iterators
+
     }else{
         std::cout << "Container variables have not been initialized propperly";
     }

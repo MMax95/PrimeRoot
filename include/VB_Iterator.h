@@ -13,6 +13,7 @@
 #include <boost/container/list.hpp>
 
 
+
 class VB_Iterator {
 
 private:
@@ -60,7 +61,7 @@ private:
     void checkResult(int position, mpz_t result);
 
     ///Step functions
-    void setFactor(uint8_t segment, uint8_t position, mpz_t number);
+    void setFactor(uint8_t segment, int position, mpz_t number);
     void getSubResult(uint8_t xSegment, uint8_t ySegment, mpz_t result, mpz_t previousResult);
     void resetNode(int position);
 
