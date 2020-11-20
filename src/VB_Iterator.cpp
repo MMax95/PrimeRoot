@@ -12,6 +12,7 @@ bool CHECK_DEBUG = false;
 bool USER_STEP = false;
 mpz_t debugContainer;
 int debugInt;
+int TARGET_SEGMENT = 151;
 bool step1 = false;
 bool step2 = false;
 bool FACTOR_DEBUG = false;
@@ -254,7 +255,7 @@ void VB_Iterator::initialIterator(int position){
             if(INIT_ITERATOR_DEBUG){
                 std::cout << "\nPosition: " << position << ". xSegment " << (uint)xSegments[position] << ". ySegment " << (uint)ySegments[position] << "\n";
                 gmp_printf("Running Result: %Zd\n\n", results[position]);
-                if(branches[position] == 53)
+                if(branches[position] == TARGET_SEGMENT)
                 {
                     step1 = true;
                 }
@@ -306,7 +307,8 @@ void VB_Iterator::depthSubIterator(int position){
             std::cout << "Iterating target segment " << (int)numberSegments[position] << "\n";
             gmp_printf("X: %Zd\n Y: %Zd\n", x, y);
         }
-        for (branches[position] = 0; branches[position] < base; ++branches[position]) {///Since X and Y are not identical anymore, we have to go through all the possible branches.
+        for (branches[position] = 0; branches[position] < base; ++branches[position])
+        {///Since X and Y are not identical anymore, we have to go through all the possible branches.
             if(DEPTH_ITERATOR_DEBUG){
                 std::cout << "Branch " << branches[position] << "\n";
             }
@@ -327,7 +329,6 @@ void VB_Iterator::depthSubIterator(int position){
                     FACTOR_DEBUG = true;
                 getchar();
             }
-            if(USER_STEP){getchar();};
             getSubResult(xSegments[position],ySegments[position],
                          results[position], results[position - 1]);
             setFactor(xSegments[position], position, x);
@@ -352,10 +353,10 @@ void VB_Iterator::widthSubIterator(int position){
         ///Since X0 and Y0 are determined, the both sum and mod tables now have to be used
         ///The for loop can be tweaked for different branch iteration order
         ///Since the width iterator assumes X == Y, half of the sum pairs can be overlooked, as any number bigger than (2^base2exp)/2 will produce mirror branches
-        for (branches[position] = 0; branches[position] < pow(2, base2exp); ++branches[position])
+        for (branches[position] = 0; branches[position] < base; ++branches[position])
         {
             xSegments[position] = modTable[branches[position]][Y0][0];
-            ySegments[position] = modTable[(numberSegments[position] - branches[position])][X0][0];
+            ySegments[position] = modTable[(uint8_t)(numberSegments[position] - branches[position])][X0][0];
             getSubResult(xSegments[position],ySegments[position],
                          results[position], results[position - 1]);
             setFactor(xSegments[position], position, x);
@@ -366,8 +367,8 @@ void VB_Iterator::widthSubIterator(int position){
             } else { ///If x[p] != y[p], call depth iterator
                 depthSubIterator(position + 1);
             }
+            resetNode(position);
         }
-        resetNode(position);
     }else if(position == xySize){
         checkResult(position, results[position - 1]);
     }
