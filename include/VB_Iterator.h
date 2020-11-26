@@ -18,41 +18,35 @@ class VB_Iterator {
 
 private:
     ///Local variables
-
-    ///!!!!! uint8_t_t8 should be addresed with template metaprogramming
     uint nSize = 0;
-    uint8_t xySize = 0;
-    uint8_t blocksPerLimb = 0;
+    uint xySize = 0;
     uint X0 = 0;
     uint Y0 = 0;
-    uint8_t baseMask = 0;
-    unsigned long long base2exp = 0;
+    uint base2exp = 0;
     uint base = 0;
-    uint8_t numberSegments[MAX_N_SIZE];
-    mpz_t *maskList;
-    uint8_t ***modTable;
+    uint numberSegments[MAX_N_SIZE];
+    uint ***modTable;
     uint branches[MAX_N_SIZE]; ///Remember the target number and the factor index
-    uint8_t xSegments[MAX_N_SIZE];
-    uint8_t ySegments[MAX_N_SIZE];
+    uint xSegments[MAX_N_SIZE];
+    uint ySegments[MAX_N_SIZE];
 
     mpz_t targetNumber;
     mpz_t temp;
     mpz_t x;
     mpz_t y;
     mpz_t results[MAX_N_SIZE];
+    mpz_t *maskList;
+    mpz_t resultContainer;
 
     bool variablesInitialized = 0;
     int currentPosition = -1;
 
     ///Utility functions
-    uint8_t ***generateModTable(uint8_t ***modTable) const;
+    uint ***generateModTable(uint ***modTable) const;
     mpz_t *generateMaskList(mpz_t *maskList) const;
-    static bool checkModTable(uint8_t ***modTable);
-    static bool checkMaskList(const mpz_t *maskList);
-    void generateStaticStructures(uint8_t ***modTableDestination, mpz_t *maskListDestination);
-    bool bindStaticStructures(uint8_t ***modTableSource, mpz_t *maskListSource);
-    uint8_t segmentNumber(mpz_t number);
-    static bool addResult(mpz_t xSolution, mpz_t ySolution);
+    void generateStaticStructures(uint ***modTableDestination, mpz_t *maskListDestination);
+    bool bindStaticStructures(uint ***modTableSource, mpz_t *maskListSource);
+    static bool addResult(mpz_t xSolution, mpz_t ySolution) ;
 
     ///Iterator functions
     void initialIterator (int position);
@@ -61,17 +55,19 @@ private:
     void checkResult(int position, mpz_t result);
 
     ///Step functions
-    void setFactor(uint8_t segment, int position, mpz_t number);
-    void getSubResult(uint8_t xSegment, uint8_t ySegment, mpz_t result, mpz_t previousResult);
+    void setFactor(uint segment, int position, mpz_t number);
+    void getSubResult(uint xSegment, uint ySegment, mpz_t result, mpz_t previousResult);
     void resetNode(int position);
 
 public:
-    VB_Iterator(const char *numberString, uint8_t startingPosition, uint wanted2exp = 4,
-                uint8_t ***generatedModTable = nullptr, mpz_t *generatedMaskList = nullptr,
+    VB_Iterator(const char *numberString, uint startingPosition, uint wanted2exp = 4,
+                uint ***generatedModTable = nullptr, mpz_t *generatedMaskList = nullptr,
                         bool generateTables = true);
+
     //UI Functions
 
     int startIteration(int strategy);
+    int depthIteration(int strategy);
 
     void testTables();
 };
