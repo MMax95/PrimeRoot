@@ -29,6 +29,7 @@ private:
     uint branches[MAX_N_SIZE]; ///Remember the target number and the factor index
     uint xSegments[MAX_N_SIZE];
     uint ySegments[MAX_N_SIZE];
+    uint baseMask = 0;
 
     mpz_t targetNumber;
     mpz_t temp;
@@ -56,7 +57,7 @@ private:
 
     ///Step functions
     void setFactor(uint segment, int position, mpz_t number);
-    void getSubResult(uint xSegment, uint ySegment, mpz_t result, mpz_t previousResult);
+    void getSubResult(uint xSegment, uint ySegment, mpz_t result, mpz_t previousResult, int position);
     void resetNode(int position);
 
 public:

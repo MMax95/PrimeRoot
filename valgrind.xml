@@ -1,0 +1,1025 @@
+<?xml version="1.0"?>
+
+<valgrindoutput>
+
+<protocolversion>4</protocolversion>
+<protocoltool>memcheck</protocoltool>
+
+<preamble>
+  <line>Memcheck, a memory error detector</line>
+  <line>Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.</line>
+  <line>Using Valgrind-3.15.0 and LibVEX; rerun with -h for copyright info</line>
+  <line>Command: /home/blackberry/Projects/PrimeRoot/cmake-build-debug/PrimeRoot 1231231121541777</line>
+</preamble>
+
+<pid>92426</pid>
+<ppid>2715</ppid>
+<tool>memcheck</tool>
+
+<args>
+  <vargv>
+    <exe>/usr/bin/valgrind.bin</exe>
+    <arg>--tool=memcheck</arg>
+    <arg>--xml=yes</arg>
+    <arg>--xml-file=/tmp/valgrind</arg>
+    <arg>--gen-suppressions=all</arg>
+    <arg>--leak-check=full</arg>
+    <arg>--leak-resolution=med</arg>
+    <arg>--track-origins=yes</arg>
+    <arg>--vgdb=no</arg>
+  </vargv>
+  <argv>
+    <exe>/home/blackberry/Projects/PrimeRoot/cmake-build-debug/PrimeRoot</exe>
+    <arg>1231231121541777</arg>
+  </argv>
+</args>
+
+<status>
+  <state>RUNNING</state>
+  <time>00:00:00:00.117 </time>
+</status>
+
+
+<status>
+  <state>FINISHED</state>
+  <time>00:05:28:05.668 </time>
+</status>
+
+<error>
+  <unique>0x2</unique>
+  <tid>1</tid>
+  <kind>Leak_DefinitelyLost</kind>
+  <xwhat>
+    <text>8 bytes in 1 blocks are definitely lost in loss record 3 of 13</text>
+    <leakedbytes>8</leakedbytes>
+    <leakedblocks>1</leakedblocks>
+  </xwhat>
+  <stack>
+    <frame>
+      <ip>0x483B7F3</ip>
+      <obj>/usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so</obj>
+      <fn>malloc</fn>
+    </frame>
+    <frame>
+      <ip>0x11BDFD</ip>
+      <obj>/home/blackberry/Projects/PrimeRoot/cmake-build-debug/PrimeRoot</obj>
+      <fn>__gmp_default_allocate</fn>
+    </frame>
+    <frame>
+      <ip>0x113E80</ip>
+      <obj>/home/blackberry/Projects/PrimeRoot/cmake-build-debug/PrimeRoot</obj>
+      <fn>__gmpz_realloc</fn>
+    </frame>
+    <frame>
+      <ip>0x1144DE</ip>
+      <obj>/home/blackberry/Projects/PrimeRoot/cmake-build-debug/PrimeRoot</obj>
+      <fn>__gmpz_set_ui</fn>
+    </frame>
+    <frame>
+      <ip>0x110BB3</ip>
+      <obj>/home/blackberry/Projects/PrimeRoot/cmake-build-debug/PrimeRoot</obj>
+      <fn>VB_Iterator::checkResult(int, __mpz_struct*)</fn>
+      <dir>/home/blackberry/Projects/PrimeRoot/src</dir>
+      <file>VB_Iterator.cpp</file>
+      <line>218</line>
+    </frame>
+    <frame>
+      <ip>0x1106F6</ip>
+      <obj>/home/blackberry/Projects/PrimeRoot/cmake-build-debug/PrimeRoot</obj>
+      <fn>VB_Iterator::depthSubIterator(int)</fn>
+      <dir>/home/blackberry/Projects/PrimeRoot/src</dir>
+      <file>VB_Iterator.cpp</file>
+      <line>175</line>
+    </frame>
+    <frame>
+      <ip>0x110682</ip>
+      <obj>/home/blackberry/Projects/PrimeRoot/cmake-build-debug/PrimeRoot</obj>
+      <fn>VB_Iterator::depthSubIterator(int)</fn>
+      <dir>/home/blackberry/Projects/PrimeRoot/src</dir>
+      <file>VB_Iterator.cpp</file>
+      <line>171</line>
+    </frame>
+    <frame>
+      <ip>0x110682</ip>
+      <obj>/home/blackberry/Projects/PrimeRoot/cmake-build-debug/PrimeRoot</obj>
+      <fn>VB_Iterator::depthSubIterator(int)</fn>
+      <dir>/home/blackberry/Projects/PrimeRoot/src</dir>
+      <file>VB_Iterator.cpp</file>
+      <line>171</line>
+    </frame>
+    <frame>
+      <ip>0x110682</ip>
+      <obj>/home/blackberry/Projects/PrimeRoot/cmake-build-debug/PrimeRoot</obj>
+      <fn>VB_Iterator::depthSubIterator(int)</fn>
+      <dir>/home/blackberry/Projects/PrimeRoot/src</dir>
+      <file>VB_Iterator.cpp</file>
+      <line>171</line>
+    </frame>
+    <frame>
+      <ip>0x1103E1</ip>
+      <obj>/home/blackberry/Projects/PrimeRoot/cmake-build-debug/PrimeRoot</obj>
+      <fn>VB_Iterator::initialIterator(int)</fn>
+      <dir>/home/blackberry/Projects/PrimeRoot/src</dir>
+      <file>VB_Iterator.cpp</file>
+      <line>149</line>
+    </frame>
+    <frame>
+      <ip>0x110FB7</ip>
+      <obj>/home/blackberry/Projects/PrimeRoot/cmake-build-debug/PrimeRoot</obj>
+      <fn>VB_Iterator::startIteration(int)</fn>
+      <dir>/home/blackberry/Projects/PrimeRoot/src</dir>
+      <file>VB_Iterator.cpp</file>
+      <line>273</line>
+    </frame>
+    <frame>
+      <ip>0x10A412</ip>
+      <obj>/home/blackberry/Projects/PrimeRoot/cmake-build-debug/PrimeRoot</obj>
+      <fn>main</fn>
+      <dir>/home/blackberry/Projects/PrimeRoot</dir>
+      <file>main.cpp</file>
+      <line>18</line>
+    </frame>
+  </stack>
+  <suppression>
+    <sname>insert_a_suppression_name_here</sname>
+    <skind>Memcheck:Leak</skind>
+    <skaux>match-leak-kinds: definite</skaux>
+    <sframe> <fun>malloc</fun> </sframe>
+    <sframe> <fun>__gmp_default_allocate</fun> </sframe>
+    <sframe> <fun>__gmpz_realloc</fun> </sframe>
+    <sframe> <fun>__gmpz_set_ui</fun> </sframe>
+    <sframe> <fun>_ZN11VB_Iterator11checkResultEiP12__mpz_struct</fun> </sframe>
+    <sframe> <fun>_ZN11VB_Iterator16depthSubIteratorEi</fun> </sframe>
+    <sframe> <fun>_ZN11VB_Iterator16depthSubIteratorEi</fun> </sframe>
+    <sframe> <fun>_ZN11VB_Iterator16depthSubIteratorEi</fun> </sframe>
+    <sframe> <fun>_ZN11VB_Iterator16depthSubIteratorEi</fun> </sframe>
+    <sframe> <fun>_ZN11VB_Iterator15initialIteratorEi</fun> </sframe>
+    <sframe> <fun>_ZN11VB_Iterator14startIterationEi</fun> </sframe>
+    <sframe> <fun>main</fun> </sframe>
+    <rawtext>
+<![CDATA[
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: definite
+   fun:malloc
+   fun:__gmp_default_allocate
+   fun:__gmpz_realloc
+   fun:__gmpz_set_ui
+   fun:_ZN11VB_Iterator11checkResultEiP12__mpz_struct
+   fun:_ZN11VB_Iterator16depthSubIteratorEi
+   fun:_ZN11VB_Iterator16depthSubIteratorEi
+   fun:_ZN11VB_Iterator16depthSubIteratorEi
+   fun:_ZN11VB_Iterator16depthSubIteratorEi
+   fun:_ZN11VB_Iterator15initialIteratorEi
+   fun:_ZN11VB_Iterator14startIterationEi
+   fun:main
+}
+]]>
+    </rawtext>
+  </suppression>
+</error>
+
+  <suppression>
+    <sname>insert_a_suppression_name_here</sname>
+    <skind>Memcheck:Leak</skind>
+    <skaux>match-leak-kinds: definite</skaux>
+    <sframe> <fun>malloc</fun> </sframe>
+    <sframe> <fun>__gmp_default_allocate</fun> </sframe>
+    <sframe> <fun>__gmpz_realloc</fun> </sframe>
+    <sframe> <fun>__gmpz_set_ui</fun> </sframe>
+    <sframe> <fun>_ZN11VB_Iterator11checkResultEiP12__mpz_struct</fun> </sframe>
+    <sframe> <fun>_ZN11VB_Iterator16depthSubIteratorEi</fun> </sframe>
+    <sframe> <fun>_ZN11VB_Iterator16depthSubIteratorEi</fun> </sframe>
+    <sframe> <fun>_ZN11VB_Iterator16depthSubIteratorEi</fun> </sframe>
+    <sframe> <fun>_ZN11VB_Iterator16depthSubIteratorEi</fun> </sframe>
+    <sframe> <fun>_ZN11VB_Iterator15initialIteratorEi</fun> </sframe>
+    <sframe> <fun>_ZN11VB_Iterator14startIterationEi</fun> </sframe>
+    <sframe> <fun>main</fun> </sframe>
+    <rawtext>
+<![CDATA[
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: definite
+   fun:malloc
+   fun:__gmp_default_allocate
+   fun:__gmpz_realloc
+   fun:__gmpz_set_ui
+   fun:_ZN11VB_Iterator11checkResultEiP12__mpz_struct
+   fun:_ZN11VB_Iterator16depthSubIteratorEi
+   fun:_ZN11VB_Iterator16depthSubIteratorEi
+   fun:_ZN11VB_Iterator16depthSubIteratorEi
+   fun:_ZN11VB_Iterator16depthSubIteratorEi
+   fun:_ZN11VB_Iterator15initialIteratorEi
+   fun:_ZN11VB_Iterator14startIterationEi
+   fun:main
+}
+]]>
+    </rawtext>
+  </suppression>
+<error>
+  <unique>0x3</unique>
+  <tid>1</tid>
+  <kind>Leak_DefinitelyLost</kind>
+  <xwhat>
+    <text>16 bytes in 1 blocks are definitely lost in loss record 4 of 13</text>
+    <leakedbytes>16</leakedbytes>
+    <leakedblocks>1</leakedblocks>
+  </xwhat>
+  <stack>
+    <frame>
+      <ip>0x483B7F3</ip>
+      <obj>/usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so</obj>
+      <fn>malloc</fn>
+    </frame>
+    <frame>
+      <ip>0x11BDFD</ip>
+      <obj>/home/blackberry/Projects/PrimeRoot/cmake-build-debug/PrimeRoot</obj>
+      <fn>__gmp_default_allocate</fn>
+    </frame>
+    <frame>
+      <ip>0x113E80</ip>
+      <obj>/home/blackberry/Projects/PrimeRoot/cmake-build-debug/PrimeRoot</obj>
+      <fn>__gmpz_realloc</fn>
+    </frame>
+    <frame>
+      <ip>0x11447F</ip>
+      <obj>/home/blackberry/Projects/PrimeRoot/cmake-build-debug/PrimeRoot</obj>
+      <fn>__gmpz_set_str</fn>
+    </frame>
+    <frame>
+      <ip>0x10F907</ip>
+      <obj>/home/blackberry/Projects/PrimeRoot/cmake-build-debug/PrimeRoot</obj>
+      <fn>VB_Iterator::VB_Iterator(char const*, unsigned int, unsigned int, unsigned int***, __mpz_struct (*) [1], bool)</fn>
+      <dir>/home/blackberry/Projects/PrimeRoot/src</dir>
+      <file>VB_Iterator.cpp</file>
+      <line>18</line>
+    </frame>
+    <frame>
+      <ip>0x10A3FA</ip>
+      <obj>/home/blackberry/Projects/PrimeRoot/cmake-build-debug/PrimeRoot</obj>
+      <fn>main</fn>
+      <dir>/home/blackberry/Projects/PrimeRoot</dir>
+      <file>main.cpp</file>
+      <line>16</line>
+    </frame>
+  </stack>
+  <suppression>
+    <sname>insert_a_suppression_name_here</sname>
+    <skind>Memcheck:Leak</skind>
+    <skaux>match-leak-kinds: definite</skaux>
+    <sframe> <fun>malloc</fun> </sframe>
+    <sframe> <fun>__gmp_default_allocate</fun> </sframe>
+    <sframe> <fun>__gmpz_realloc</fun> </sframe>
+    <sframe> <fun>__gmpz_set_str</fun> </sframe>
+    <sframe> <fun>_ZN11VB_IteratorC1EPKcjjPPPjPA1_12__mpz_structb</fun> </sframe>
+    <sframe> <fun>main</fun> </sframe>
+    <rawtext>
+<![CDATA[
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: definite
+   fun:malloc
+   fun:__gmp_default_allocate
+   fun:__gmpz_realloc
+   fun:__gmpz_set_str
+   fun:_ZN11VB_IteratorC1EPKcjjPPPjPA1_12__mpz_structb
+   fun:main
+}
+]]>
+    </rawtext>
+  </suppression>
+</error>
+
+  <suppression>
+    <sname>insert_a_suppression_name_here</sname>
+    <skind>Memcheck:Leak</skind>
+    <skaux>match-leak-kinds: definite</skaux>
+    <sframe> <fun>malloc</fun> </sframe>
+    <sframe> <fun>__gmp_default_allocate</fun> </sframe>
+    <sframe> <fun>__gmpz_realloc</fun> </sframe>
+    <sframe> <fun>__gmpz_set_str</fun> </sframe>
+    <sframe> <fun>_ZN11VB_IteratorC1EPKcjjPPPjPA1_12__mpz_structb</fun> </sframe>
+    <sframe> <fun>main</fun> </sframe>
+    <rawtext>
+<![CDATA[
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: definite
+   fun:malloc
+   fun:__gmp_default_allocate
+   fun:__gmpz_realloc
+   fun:__gmpz_set_str
+   fun:_ZN11VB_IteratorC1EPKcjjPPPjPA1_12__mpz_structb
+   fun:main
+}
+]]>
+    </rawtext>
+  </suppression>
+<error>
+  <unique>0x4</unique>
+  <tid>1</tid>
+  <kind>Leak_DefinitelyLost</kind>
+  <xwhat>
+    <text>16 bytes in 1 blocks are definitely lost in loss record 5 of 13</text>
+    <leakedbytes>16</leakedbytes>
+    <leakedblocks>1</leakedblocks>
+  </xwhat>
+  <stack>
+    <frame>
+      <ip>0x483DFAF</ip>
+      <obj>/usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so</obj>
+      <fn>realloc</fn>
+    </frame>
+    <frame>
+      <ip>0x11BE58</ip>
+      <obj>/home/blackberry/Projects/PrimeRoot/cmake-build-debug/PrimeRoot</obj>
+      <fn>__gmp_default_reallocate</fn>
+    </frame>
+    <frame>
+      <ip>0x113E4E</ip>
+      <obj>/home/blackberry/Projects/PrimeRoot/cmake-build-debug/PrimeRoot</obj>
+      <fn>__gmpz_realloc</fn>
+    </frame>
+    <frame>
+      <ip>0x113DFD</ip>
+      <obj>/home/blackberry/Projects/PrimeRoot/cmake-build-debug/PrimeRoot</obj>
+      <fn>__gmpz_mul_2exp</fn>
+    </frame>
+    <frame>
+      <ip>0x110D29</ip>
+      <obj>/home/blackberry/Projects/PrimeRoot/cmake-build-debug/PrimeRoot</obj>
+      <fn>VB_Iterator::setFactor(unsigned int, int, __mpz_struct*)</fn>
+      <dir>/home/blackberry/Projects/PrimeRoot/src</dir>
+      <file>VB_Iterator.cpp</file>
+      <line>241</line>
+    </frame>
+    <frame>
+      <ip>0x11031B</ip>
+      <obj>/home/blackberry/Projects/PrimeRoot/cmake-build-debug/PrimeRoot</obj>
+      <fn>VB_Iterator::initialIterator(int)</fn>
+      <dir>/home/blackberry/Projects/PrimeRoot/src</dir>
+      <file>VB_Iterator.cpp</file>
+      <line>141</line>
+    </frame>
+    <frame>
+      <ip>0x110FB7</ip>
+      <obj>/home/blackberry/Projects/PrimeRoot/cmake-build-debug/PrimeRoot</obj>
+      <fn>VB_Iterator::startIteration(int)</fn>
+      <dir>/home/blackberry/Projects/PrimeRoot/src</dir>
+      <file>VB_Iterator.cpp</file>
+      <line>273</line>
+    </frame>
+    <frame>
+      <ip>0x10A412</ip>
+      <obj>/home/blackberry/Projects/PrimeRoot/cmake-build-debug/PrimeRoot</obj>
+      <fn>main</fn>
+      <dir>/home/blackberry/Projects/PrimeRoot</dir>
+      <file>main.cpp</file>
+      <line>18</line>
+    </frame>
+  </stack>
+  <suppression>
+    <sname>insert_a_suppression_name_here</sname>
+    <skind>Memcheck:Leak</skind>
+    <skaux>match-leak-kinds: definite</skaux>
+    <sframe> <fun>realloc</fun> </sframe>
+    <sframe> <fun>__gmp_default_reallocate</fun> </sframe>
+    <sframe> <fun>__gmpz_realloc</fun> </sframe>
+    <sframe> <fun>__gmpz_mul_2exp</fun> </sframe>
+    <sframe> <fun>_ZN11VB_Iterator9setFactorEjiP12__mpz_struct</fun> </sframe>
+    <sframe> <fun>_ZN11VB_Iterator15initialIteratorEi</fun> </sframe>
+    <sframe> <fun>_ZN11VB_Iterator14startIterationEi</fun> </sframe>
+    <sframe> <fun>main</fun> </sframe>
+    <rawtext>
+<![CDATA[
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: definite
+   fun:realloc
+   fun:__gmp_default_reallocate
+   fun:__gmpz_realloc
+   fun:__gmpz_mul_2exp
+   fun:_ZN11VB_Iterator9setFactorEjiP12__mpz_struct
+   fun:_ZN11VB_Iterator15initialIteratorEi
+   fun:_ZN11VB_Iterator14startIterationEi
+   fun:main
+}
+]]>
+    </rawtext>
+  </suppression>
+</error>
+
+  <suppression>
+    <sname>insert_a_suppression_name_here</sname>
+    <skind>Memcheck:Leak</skind>
+    <skaux>match-leak-kinds: definite</skaux>
+    <sframe> <fun>realloc</fun> </sframe>
+    <sframe> <fun>__gmp_default_reallocate</fun> </sframe>
+    <sframe> <fun>__gmpz_realloc</fun> </sframe>
+    <sframe> <fun>__gmpz_mul_2exp</fun> </sframe>
+    <sframe> <fun>_ZN11VB_Iterator9setFactorEjiP12__mpz_struct</fun> </sframe>
+    <sframe> <fun>_ZN11VB_Iterator15initialIteratorEi</fun> </sframe>
+    <sframe> <fun>_ZN11VB_Iterator14startIterationEi</fun> </sframe>
+    <sframe> <fun>main</fun> </sframe>
+    <rawtext>
+<![CDATA[
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: definite
+   fun:realloc
+   fun:__gmp_default_reallocate
+   fun:__gmpz_realloc
+   fun:__gmpz_mul_2exp
+   fun:_ZN11VB_Iterator9setFactorEjiP12__mpz_struct
+   fun:_ZN11VB_Iterator15initialIteratorEi
+   fun:_ZN11VB_Iterator14startIterationEi
+   fun:main
+}
+]]>
+    </rawtext>
+  </suppression>
+<error>
+  <unique>0x5</unique>
+  <tid>1</tid>
+  <kind>Leak_DefinitelyLost</kind>
+  <xwhat>
+    <text>16 bytes in 1 blocks are definitely lost in loss record 6 of 13</text>
+    <leakedbytes>16</leakedbytes>
+    <leakedblocks>1</leakedblocks>
+  </xwhat>
+  <stack>
+    <frame>
+      <ip>0x483B7F3</ip>
+      <obj>/usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so</obj>
+      <fn>malloc</fn>
+    </frame>
+    <frame>
+      <ip>0x11BDFD</ip>
+      <obj>/home/blackberry/Projects/PrimeRoot/cmake-build-debug/PrimeRoot</obj>
+      <fn>__gmp_default_allocate</fn>
+    </frame>
+    <frame>
+      <ip>0x113E80</ip>
+      <obj>/home/blackberry/Projects/PrimeRoot/cmake-build-debug/PrimeRoot</obj>
+      <fn>__gmpz_realloc</fn>
+    </frame>
+    <frame>
+      <ip>0x114DC9</ip>
+      <obj>/home/blackberry/Projects/PrimeRoot/cmake-build-debug/PrimeRoot</obj>
+      <fn>__gmpz_sub_ui</fn>
+    </frame>
+    <frame>
+      <ip>0x11037C</ip>
+      <obj>/home/blackberry/Projects/PrimeRoot/cmake-build-debug/PrimeRoot</obj>
+      <fn>VB_Iterator::initialIterator(int)</fn>
+      <dir>/home/blackberry/Projects/PrimeRoot/src</dir>
+      <file>VB_Iterator.cpp</file>
+      <line>143</line>
+    </frame>
+    <frame>
+      <ip>0x110FB7</ip>
+      <obj>/home/blackberry/Projects/PrimeRoot/cmake-build-debug/PrimeRoot</obj>
+      <fn>VB_Iterator::startIteration(int)</fn>
+      <dir>/home/blackberry/Projects/PrimeRoot/src</dir>
+      <file>VB_Iterator.cpp</file>
+      <line>273</line>
+    </frame>
+    <frame>
+      <ip>0x10A412</ip>
+      <obj>/home/blackberry/Projects/PrimeRoot/cmake-build-debug/PrimeRoot</obj>
+      <fn>main</fn>
+      <dir>/home/blackberry/Projects/PrimeRoot</dir>
+      <file>main.cpp</file>
+      <line>18</line>
+    </frame>
+  </stack>
+  <suppression>
+    <sname>insert_a_suppression_name_here</sname>
+    <skind>Memcheck:Leak</skind>
+    <skaux>match-leak-kinds: definite</skaux>
+    <sframe> <fun>malloc</fun> </sframe>
+    <sframe> <fun>__gmp_default_allocate</fun> </sframe>
+    <sframe> <fun>__gmpz_realloc</fun> </sframe>
+    <sframe> <fun>__gmpz_sub_ui</fun> </sframe>
+    <sframe> <fun>_ZN11VB_Iterator15initialIteratorEi</fun> </sframe>
+    <sframe> <fun>_ZN11VB_Iterator14startIterationEi</fun> </sframe>
+    <sframe> <fun>main</fun> </sframe>
+    <rawtext>
+<![CDATA[
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: definite
+   fun:malloc
+   fun:__gmp_default_allocate
+   fun:__gmpz_realloc
+   fun:__gmpz_sub_ui
+   fun:_ZN11VB_Iterator15initialIteratorEi
+   fun:_ZN11VB_Iterator14startIterationEi
+   fun:main
+}
+]]>
+    </rawtext>
+  </suppression>
+</error>
+
+  <suppression>
+    <sname>insert_a_suppression_name_here</sname>
+    <skind>Memcheck:Leak</skind>
+    <skaux>match-leak-kinds: definite</skaux>
+    <sframe> <fun>malloc</fun> </sframe>
+    <sframe> <fun>__gmp_default_allocate</fun> </sframe>
+    <sframe> <fun>__gmpz_realloc</fun> </sframe>
+    <sframe> <fun>__gmpz_sub_ui</fun> </sframe>
+    <sframe> <fun>_ZN11VB_Iterator15initialIteratorEi</fun> </sframe>
+    <sframe> <fun>_ZN11VB_Iterator14startIterationEi</fun> </sframe>
+    <sframe> <fun>main</fun> </sframe>
+    <rawtext>
+<![CDATA[
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: definite
+   fun:malloc
+   fun:__gmp_default_allocate
+   fun:__gmpz_realloc
+   fun:__gmpz_sub_ui
+   fun:_ZN11VB_Iterator15initialIteratorEi
+   fun:_ZN11VB_Iterator14startIterationEi
+   fun:main
+}
+]]>
+    </rawtext>
+  </suppression>
+<error>
+  <unique>0x6</unique>
+  <tid>1</tid>
+  <kind>Leak_DefinitelyLost</kind>
+  <xwhat>
+    <text>32 bytes in 2 blocks are definitely lost in loss record 7 of 13</text>
+    <leakedbytes>32</leakedbytes>
+    <leakedblocks>2</leakedblocks>
+  </xwhat>
+  <stack>
+    <frame>
+      <ip>0x483DFAF</ip>
+      <obj>/usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so</obj>
+      <fn>realloc</fn>
+    </frame>
+    <frame>
+      <ip>0x11BE58</ip>
+      <obj>/home/blackberry/Projects/PrimeRoot/cmake-build-debug/PrimeRoot</obj>
+      <fn>__gmp_default_reallocate</fn>
+    </frame>
+    <frame>
+      <ip>0x113E4E</ip>
+      <obj>/home/blackberry/Projects/PrimeRoot/cmake-build-debug/PrimeRoot</obj>
+      <fn>__gmpz_realloc</fn>
+    </frame>
+    <frame>
+      <ip>0x1119E0</ip>
+      <obj>/home/blackberry/Projects/PrimeRoot/cmake-build-debug/PrimeRoot</obj>
+      <fn>__gmpz_add</fn>
+    </frame>
+    <frame>
+      <ip>0x110D47</ip>
+      <obj>/home/blackberry/Projects/PrimeRoot/cmake-build-debug/PrimeRoot</obj>
+      <fn>VB_Iterator::setFactor(unsigned int, int, __mpz_struct*)</fn>
+      <dir>/home/blackberry/Projects/PrimeRoot/src</dir>
+      <file>VB_Iterator.cpp</file>
+      <line>242</line>
+    </frame>
+    <frame>
+      <ip>0x11031B</ip>
+      <obj>/home/blackberry/Projects/PrimeRoot/cmake-build-debug/PrimeRoot</obj>
+      <fn>VB_Iterator::initialIterator(int)</fn>
+      <dir>/home/blackberry/Projects/PrimeRoot/src</dir>
+      <file>VB_Iterator.cpp</file>
+      <line>141</line>
+    </frame>
+    <frame>
+      <ip>0x110FB7</ip>
+      <obj>/home/blackberry/Projects/PrimeRoot/cmake-build-debug/PrimeRoot</obj>
+      <fn>VB_Iterator::startIteration(int)</fn>
+      <dir>/home/blackberry/Projects/PrimeRoot/src</dir>
+      <file>VB_Iterator.cpp</file>
+      <line>273</line>
+    </frame>
+    <frame>
+      <ip>0x10A412</ip>
+      <obj>/home/blackberry/Projects/PrimeRoot/cmake-build-debug/PrimeRoot</obj>
+      <fn>main</fn>
+      <dir>/home/blackberry/Projects/PrimeRoot</dir>
+      <file>main.cpp</file>
+      <line>18</line>
+    </frame>
+  </stack>
+  <suppression>
+    <sname>insert_a_suppression_name_here</sname>
+    <skind>Memcheck:Leak</skind>
+    <skaux>match-leak-kinds: definite</skaux>
+    <sframe> <fun>realloc</fun> </sframe>
+    <sframe> <fun>__gmp_default_reallocate</fun> </sframe>
+    <sframe> <fun>__gmpz_realloc</fun> </sframe>
+    <sframe> <fun>__gmpz_add</fun> </sframe>
+    <sframe> <fun>_ZN11VB_Iterator9setFactorEjiP12__mpz_struct</fun> </sframe>
+    <sframe> <fun>_ZN11VB_Iterator15initialIteratorEi</fun> </sframe>
+    <sframe> <fun>_ZN11VB_Iterator14startIterationEi</fun> </sframe>
+    <sframe> <fun>main</fun> </sframe>
+    <rawtext>
+<![CDATA[
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: definite
+   fun:realloc
+   fun:__gmp_default_reallocate
+   fun:__gmpz_realloc
+   fun:__gmpz_add
+   fun:_ZN11VB_Iterator9setFactorEjiP12__mpz_struct
+   fun:_ZN11VB_Iterator15initialIteratorEi
+   fun:_ZN11VB_Iterator14startIterationEi
+   fun:main
+}
+]]>
+    </rawtext>
+  </suppression>
+</error>
+
+  <suppression>
+    <sname>insert_a_suppression_name_here</sname>
+    <skind>Memcheck:Leak</skind>
+    <skaux>match-leak-kinds: definite</skaux>
+    <sframe> <fun>realloc</fun> </sframe>
+    <sframe> <fun>__gmp_default_reallocate</fun> </sframe>
+    <sframe> <fun>__gmpz_realloc</fun> </sframe>
+    <sframe> <fun>__gmpz_add</fun> </sframe>
+    <sframe> <fun>_ZN11VB_Iterator9setFactorEjiP12__mpz_struct</fun> </sframe>
+    <sframe> <fun>_ZN11VB_Iterator15initialIteratorEi</fun> </sframe>
+    <sframe> <fun>_ZN11VB_Iterator14startIterationEi</fun> </sframe>
+    <sframe> <fun>main</fun> </sframe>
+    <rawtext>
+<![CDATA[
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: definite
+   fun:realloc
+   fun:__gmp_default_reallocate
+   fun:__gmpz_realloc
+   fun:__gmpz_add
+   fun:_ZN11VB_Iterator9setFactorEjiP12__mpz_struct
+   fun:_ZN11VB_Iterator15initialIteratorEi
+   fun:_ZN11VB_Iterator14startIterationEi
+   fun:main
+}
+]]>
+    </rawtext>
+  </suppression>
+<error>
+  <unique>0x7</unique>
+  <tid>1</tid>
+  <kind>Leak_DefinitelyLost</kind>
+  <xwhat>
+    <text>48 bytes in 3 blocks are definitely lost in loss record 8 of 13</text>
+    <leakedbytes>48</leakedbytes>
+    <leakedblocks>3</leakedblocks>
+  </xwhat>
+  <stack>
+    <frame>
+      <ip>0x483B7F3</ip>
+      <obj>/usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so</obj>
+      <fn>malloc</fn>
+    </frame>
+    <frame>
+      <ip>0x11BDFD</ip>
+      <obj>/home/blackberry/Projects/PrimeRoot/cmake-build-debug/PrimeRoot</obj>
+      <fn>__gmp_default_allocate</fn>
+    </frame>
+    <frame>
+      <ip>0x113E80</ip>
+      <obj>/home/blackberry/Projects/PrimeRoot/cmake-build-debug/PrimeRoot</obj>
+      <fn>__gmpz_realloc</fn>
+    </frame>
+    <frame>
+      <ip>0x114A20</ip>
+      <obj>/home/blackberry/Projects/PrimeRoot/cmake-build-debug/PrimeRoot</obj>
+      <fn>__gmpz_sub</fn>
+    </frame>
+    <frame>
+      <ip>0x110E36</ip>
+      <obj>/home/blackberry/Projects/PrimeRoot/cmake-build-debug/PrimeRoot</obj>
+      <fn>VB_Iterator::getSubResult(unsigned int, unsigned int, __mpz_struct*, __mpz_struct*, int)</fn>
+      <dir>/home/blackberry/Projects/PrimeRoot/src</dir>
+      <file>VB_Iterator.cpp</file>
+      <line>252</line>
+    </frame>
+    <frame>
+      <ip>0x110612</ip>
+      <obj>/home/blackberry/Projects/PrimeRoot/cmake-build-debug/PrimeRoot</obj>
+      <fn>VB_Iterator::depthSubIterator(int)</fn>
+      <dir>/home/blackberry/Projects/PrimeRoot/src</dir>
+      <file>VB_Iterator.cpp</file>
+      <line>168</line>
+    </frame>
+    <frame>
+      <ip>0x1103E1</ip>
+      <obj>/home/blackberry/Projects/PrimeRoot/cmake-build-debug/PrimeRoot</obj>
+      <fn>VB_Iterator::initialIterator(int)</fn>
+      <dir>/home/blackberry/Projects/PrimeRoot/src</dir>
+      <file>VB_Iterator.cpp</file>
+      <line>149</line>
+    </frame>
+    <frame>
+      <ip>0x110FB7</ip>
+      <obj>/home/blackberry/Projects/PrimeRoot/cmake-build-debug/PrimeRoot</obj>
+      <fn>VB_Iterator::startIteration(int)</fn>
+      <dir>/home/blackberry/Projects/PrimeRoot/src</dir>
+      <file>VB_Iterator.cpp</file>
+      <line>273</line>
+    </frame>
+    <frame>
+      <ip>0x10A412</ip>
+      <obj>/home/blackberry/Projects/PrimeRoot/cmake-build-debug/PrimeRoot</obj>
+      <fn>main</fn>
+      <dir>/home/blackberry/Projects/PrimeRoot</dir>
+      <file>main.cpp</file>
+      <line>18</line>
+    </frame>
+  </stack>
+  <suppression>
+    <sname>insert_a_suppression_name_here</sname>
+    <skind>Memcheck:Leak</skind>
+    <skaux>match-leak-kinds: definite</skaux>
+    <sframe> <fun>malloc</fun> </sframe>
+    <sframe> <fun>__gmp_default_allocate</fun> </sframe>
+    <sframe> <fun>__gmpz_realloc</fun> </sframe>
+    <sframe> <fun>__gmpz_sub</fun> </sframe>
+    <sframe> <fun>_ZN11VB_Iterator12getSubResultEjjP12__mpz_structS1_i</fun> </sframe>
+    <sframe> <fun>_ZN11VB_Iterator16depthSubIteratorEi</fun> </sframe>
+    <sframe> <fun>_ZN11VB_Iterator15initialIteratorEi</fun> </sframe>
+    <sframe> <fun>_ZN11VB_Iterator14startIterationEi</fun> </sframe>
+    <sframe> <fun>main</fun> </sframe>
+    <rawtext>
+<![CDATA[
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: definite
+   fun:malloc
+   fun:__gmp_default_allocate
+   fun:__gmpz_realloc
+   fun:__gmpz_sub
+   fun:_ZN11VB_Iterator12getSubResultEjjP12__mpz_structS1_i
+   fun:_ZN11VB_Iterator16depthSubIteratorEi
+   fun:_ZN11VB_Iterator15initialIteratorEi
+   fun:_ZN11VB_Iterator14startIterationEi
+   fun:main
+}
+]]>
+    </rawtext>
+  </suppression>
+</error>
+
+  <suppression>
+    <sname>insert_a_suppression_name_here</sname>
+    <skind>Memcheck:Leak</skind>
+    <skaux>match-leak-kinds: definite</skaux>
+    <sframe> <fun>malloc</fun> </sframe>
+    <sframe> <fun>__gmp_default_allocate</fun> </sframe>
+    <sframe> <fun>__gmpz_realloc</fun> </sframe>
+    <sframe> <fun>__gmpz_sub</fun> </sframe>
+    <sframe> <fun>_ZN11VB_Iterator12getSubResultEjjP12__mpz_structS1_i</fun> </sframe>
+    <sframe> <fun>_ZN11VB_Iterator16depthSubIteratorEi</fun> </sframe>
+    <sframe> <fun>_ZN11VB_Iterator15initialIteratorEi</fun> </sframe>
+    <sframe> <fun>_ZN11VB_Iterator14startIterationEi</fun> </sframe>
+    <sframe> <fun>main</fun> </sframe>
+    <rawtext>
+<![CDATA[
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: definite
+   fun:malloc
+   fun:__gmp_default_allocate
+   fun:__gmpz_realloc
+   fun:__gmpz_sub
+   fun:_ZN11VB_Iterator12getSubResultEjjP12__mpz_structS1_i
+   fun:_ZN11VB_Iterator16depthSubIteratorEi
+   fun:_ZN11VB_Iterator15initialIteratorEi
+   fun:_ZN11VB_Iterator14startIterationEi
+   fun:main
+}
+]]>
+    </rawtext>
+  </suppression>
+<error>
+  <unique>0x9</unique>
+  <tid>1</tid>
+  <kind>Leak_DefinitelyLost</kind>
+  <xwhat>
+    <text>224 (128 direct, 96 indirect) bytes in 1 blocks are definitely lost in loss record 10 of 13</text>
+    <leakedbytes>224</leakedbytes>
+    <leakedblocks>1</leakedblocks>
+  </xwhat>
+  <stack>
+    <frame>
+      <ip>0x483C583</ip>
+      <obj>/usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so</obj>
+      <fn>operator new[](unsigned long)</fn>
+    </frame>
+    <frame>
+      <ip>0x10FF1E</ip>
+      <obj>/home/blackberry/Projects/PrimeRoot/cmake-build-debug/PrimeRoot</obj>
+      <fn>VB_Iterator::generateMaskList(__mpz_struct (*) [1]) const</fn>
+      <dir>/home/blackberry/Projects/PrimeRoot/src</dir>
+      <file>VB_Iterator.cpp</file>
+      <line>95</line>
+    </frame>
+    <frame>
+      <ip>0x1100BA</ip>
+      <obj>/home/blackberry/Projects/PrimeRoot/cmake-build-debug/PrimeRoot</obj>
+      <fn>VB_Iterator::generateStaticStructures(unsigned int***, __mpz_struct (*) [1])</fn>
+      <dir>/home/blackberry/Projects/PrimeRoot/src</dir>
+      <file>VB_Iterator.cpp</file>
+      <line>110</line>
+    </frame>
+    <frame>
+      <ip>0x10FAE5</ip>
+      <obj>/home/blackberry/Projects/PrimeRoot/cmake-build-debug/PrimeRoot</obj>
+      <fn>VB_Iterator::VB_Iterator(char const*, unsigned int, unsigned int, unsigned int***, __mpz_struct (*) [1], bool)</fn>
+      <dir>/home/blackberry/Projects/PrimeRoot/src</dir>
+      <file>VB_Iterator.cpp</file>
+      <line>39</line>
+    </frame>
+    <frame>
+      <ip>0x10A3FA</ip>
+      <obj>/home/blackberry/Projects/PrimeRoot/cmake-build-debug/PrimeRoot</obj>
+      <fn>main</fn>
+      <dir>/home/blackberry/Projects/PrimeRoot</dir>
+      <file>main.cpp</file>
+      <line>16</line>
+    </frame>
+  </stack>
+  <suppression>
+    <sname>insert_a_suppression_name_here</sname>
+    <skind>Memcheck:Leak</skind>
+    <skaux>match-leak-kinds: definite</skaux>
+    <sframe> <fun>_Znam</fun> </sframe>
+    <sframe> <fun>_ZNK11VB_Iterator16generateMaskListEPA1_12__mpz_struct</fun> </sframe>
+    <sframe> <fun>_ZN11VB_Iterator24generateStaticStructuresEPPPjPA1_12__mpz_struct</fun> </sframe>
+    <sframe> <fun>_ZN11VB_IteratorC1EPKcjjPPPjPA1_12__mpz_structb</fun> </sframe>
+    <sframe> <fun>main</fun> </sframe>
+    <rawtext>
+<![CDATA[
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: definite
+   fun:_Znam
+   fun:_ZNK11VB_Iterator16generateMaskListEPA1_12__mpz_struct
+   fun:_ZN11VB_Iterator24generateStaticStructuresEPPPjPA1_12__mpz_struct
+   fun:_ZN11VB_IteratorC1EPKcjjPPPjPA1_12__mpz_structb
+   fun:main
+}
+]]>
+    </rawtext>
+  </suppression>
+</error>
+
+  <suppression>
+    <sname>insert_a_suppression_name_here</sname>
+    <skind>Memcheck:Leak</skind>
+    <skaux>match-leak-kinds: definite</skaux>
+    <sframe> <fun>_Znam</fun> </sframe>
+    <sframe> <fun>_ZNK11VB_Iterator16generateMaskListEPA1_12__mpz_struct</fun> </sframe>
+    <sframe> <fun>_ZN11VB_Iterator24generateStaticStructuresEPPPjPA1_12__mpz_struct</fun> </sframe>
+    <sframe> <fun>_ZN11VB_IteratorC1EPKcjjPPPjPA1_12__mpz_structb</fun> </sframe>
+    <sframe> <fun>main</fun> </sframe>
+    <rawtext>
+<![CDATA[
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: definite
+   fun:_Znam
+   fun:_ZNK11VB_Iterator16generateMaskListEPA1_12__mpz_struct
+   fun:_ZN11VB_Iterator24generateStaticStructuresEPPPjPA1_12__mpz_struct
+   fun:_ZN11VB_IteratorC1EPKcjjPPPjPA1_12__mpz_structb
+   fun:main
+}
+]]>
+    </rawtext>
+  </suppression>
+<error>
+  <unique>0xc</unique>
+  <tid>1</tid>
+  <kind>Leak_DefinitelyLost</kind>
+  <xwhat>
+    <text>1,050,624 (2,048 direct, 1,048,576 indirect) bytes in 1 blocks are definitely lost in loss record 13 of 13</text>
+    <leakedbytes>1050624</leakedbytes>
+    <leakedblocks>1</leakedblocks>
+  </xwhat>
+  <stack>
+    <frame>
+      <ip>0x483C583</ip>
+      <obj>/usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so</obj>
+      <fn>operator new[](unsigned long)</fn>
+    </frame>
+    <frame>
+      <ip>0x10FD1A</ip>
+      <obj>/home/blackberry/Projects/PrimeRoot/cmake-build-debug/PrimeRoot</obj>
+      <fn>VB_Iterator::generateModTable(unsigned int***) const</fn>
+      <dir>/home/blackberry/Projects/PrimeRoot/src</dir>
+      <file>VB_Iterator.cpp</file>
+      <line>73</line>
+    </frame>
+    <frame>
+      <ip>0x11009C</ip>
+      <obj>/home/blackberry/Projects/PrimeRoot/cmake-build-debug/PrimeRoot</obj>
+      <fn>VB_Iterator::generateStaticStructures(unsigned int***, __mpz_struct (*) [1])</fn>
+      <dir>/home/blackberry/Projects/PrimeRoot/src</dir>
+      <file>VB_Iterator.cpp</file>
+      <line>109</line>
+    </frame>
+    <frame>
+      <ip>0x10FAE5</ip>
+      <obj>/home/blackberry/Projects/PrimeRoot/cmake-build-debug/PrimeRoot</obj>
+      <fn>VB_Iterator::VB_Iterator(char const*, unsigned int, unsigned int, unsigned int***, __mpz_struct (*) [1], bool)</fn>
+      <dir>/home/blackberry/Projects/PrimeRoot/src</dir>
+      <file>VB_Iterator.cpp</file>
+      <line>39</line>
+    </frame>
+    <frame>
+      <ip>0x10A3FA</ip>
+      <obj>/home/blackberry/Projects/PrimeRoot/cmake-build-debug/PrimeRoot</obj>
+      <fn>main</fn>
+      <dir>/home/blackberry/Projects/PrimeRoot</dir>
+      <file>main.cpp</file>
+      <line>16</line>
+    </frame>
+  </stack>
+  <suppression>
+    <sname>insert_a_suppression_name_here</sname>
+    <skind>Memcheck:Leak</skind>
+    <skaux>match-leak-kinds: definite</skaux>
+    <sframe> <fun>_Znam</fun> </sframe>
+    <sframe> <fun>_ZNK11VB_Iterator16generateModTableEPPPj</fun> </sframe>
+    <sframe> <fun>_ZN11VB_Iterator24generateStaticStructuresEPPPjPA1_12__mpz_struct</fun> </sframe>
+    <sframe> <fun>_ZN11VB_IteratorC1EPKcjjPPPjPA1_12__mpz_structb</fun> </sframe>
+    <sframe> <fun>main</fun> </sframe>
+    <rawtext>
+<![CDATA[
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: definite
+   fun:_Znam
+   fun:_ZNK11VB_Iterator16generateModTableEPPPj
+   fun:_ZN11VB_Iterator24generateStaticStructuresEPPPjPA1_12__mpz_struct
+   fun:_ZN11VB_IteratorC1EPKcjjPPPjPA1_12__mpz_structb
+   fun:main
+}
+]]>
+    </rawtext>
+  </suppression>
+</error>
+
+  <suppression>
+    <sname>insert_a_suppression_name_here</sname>
+    <skind>Memcheck:Leak</skind>
+    <skaux>match-leak-kinds: definite</skaux>
+    <sframe> <fun>_Znam</fun> </sframe>
+    <sframe> <fun>_ZNK11VB_Iterator16generateModTableEPPPj</fun> </sframe>
+    <sframe> <fun>_ZN11VB_Iterator24generateStaticStructuresEPPPjPA1_12__mpz_struct</fun> </sframe>
+    <sframe> <fun>_ZN11VB_IteratorC1EPKcjjPPPjPA1_12__mpz_structb</fun> </sframe>
+    <sframe> <fun>main</fun> </sframe>
+    <rawtext>
+<![CDATA[
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: definite
+   fun:_Znam
+   fun:_ZNK11VB_Iterator16generateModTableEPPPj
+   fun:_ZN11VB_Iterator24generateStaticStructuresEPPPjPA1_12__mpz_struct
+   fun:_ZN11VB_IteratorC1EPKcjjPPPjPA1_12__mpz_structb
+   fun:main
+}
+]]>
+    </rawtext>
+  </suppression>
+<errorcounts>
+</errorcounts>
+
+<suppcounts>
+</suppcounts>
+
+</valgrindoutput>
+

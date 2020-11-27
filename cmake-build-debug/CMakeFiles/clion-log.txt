@@ -1,4 +1,22 @@
-/snap/clion/129/bin/cmake/linux/bin/cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_C_COMPILER=/usr/bin/mpicc -DCMAKE_CXX_COMPILER=/usr/bin/mpic++ -Llibdir "  " -lboost_mpi -lboost_serialization -G "CodeBlocks - Unix Makefiles" /home/blackberry/Projects/PrimeRoot
+/snap/clion/129/bin/cmake/linux/bin/cmake -DCMAKE_BUILD_TYPE=Debug -Llibdir "  " -lboost_mpi -lboost_serialization -G "CodeBlocks - Unix Makefiles" /home/blackberry/Projects/PrimeRoot
+-- The C compiler identification is GNU 9.3.0
+-- The CXX compiler identification is GNU 9.3.0
+-- Check for working C compiler: /usr/bin/cc
+-- Check for working C compiler: /usr/bin/cc - works
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Check for working CXX compiler: /usr/bin/c++
+-- Check for working CXX compiler: /usr/bin/c++ - works
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Found Boost: /usr/local/lib/cmake/Boost-1.74.0/BoostConfig.cmake (found version "1.74.0")  
+-- Found OpenMP_C: -fopenmp (found version "4.5") 
+-- Found OpenMP_CXX: -fopenmp (found version "4.5") 
+-- Found OpenMP: TRUE (found version "4.5")  
 -- Configuring done
 -- Generating done
 -- Build files have been written to: /home/blackberry/Projects/PrimeRoot/cmake-build-debug

@@ -27,13 +27,14 @@ VB_Iterator::VB_Iterator(const char numberString[1024], uint startingPosition, u
             }else{
                 base2exp = wanted2exp;
                 base = pow(2, base2exp);
+                baseMask = base - 1;
+                std::cout << "Selected Base: " << base << "\n";
                 mpz_init_set_ui(temp, 0);
                 nSize = mpz_sizeinbase(targetNumber, base);
                 std::cout << "Number size: " << nSize << std::endl;
                 if(nSize > 1)
                 {
-                    xySize = (nSize % 2) ? (nSize / 2 + 1) : (nSize / 2);
-//                    xySize = nSize / 2 + 1;
+                    xySize = (nSize % 2) ? (nSize / 2 + 1) : (nSize / 2); ///Do not modify!! Find the bug somewhere else!
                     std::cout << "xySize: " << xySize << std::endl;
                     if(generateTables){
                         generateStaticStructures(generatedModTable, generatedMaskList);
@@ -131,7 +132,7 @@ void VB_Iterator::initialIterator(int position){
         {
             if(branches[position] % 2 != 0)
             {
-                numberSegments[position] = targetNumber -> _mp_d[0] % base;
+                numberSegments[position] = targetNumber -> _mp_d[0] & baseMask;
                 if(modTable[numberSegments[position]][branches[position]][0] < branches[position])
                 {
                     continue;
@@ -161,11 +162,11 @@ void VB_Iterator::initialIterator(int position){
 
 void VB_Iterator::depthSubIterator(int position){
     if(position < xySize) {
-        numberSegments[position] = results[position - 1]->_mp_d[0] % base;
+        numberSegments[position] = results[position - 1]->_mp_d[0] & baseMask;
         for (branches[position] = 0; branches[position] < base; ++branches[position]) {
             xSegments[position] = modTable[branches[position]][Y0][0];
-            ySegments[position] = modTable[(numberSegments[position] - branches[position]) % base][X0][0];
-            getSubResult(xSegments[position], ySegments[position], results[position], results[position - 1]);
+            ySegments[position] = modTable[(numberSegments[position] - branches[position]) & baseMask][X0][0];
+            getSubResult(xSegments[position], ySegments[position], results[position], results[position - 1], position);
             setFactor(xSegments[position], position, x);
             setFactor(ySegments[position], position, y);
             depthSubIterator(position + 1);
@@ -179,14 +180,14 @@ void VB_Iterator::depthSubIterator(int position){
 
 void VB_Iterator::widthSubIterator(int position){
     if(position < xySize) {
-        numberSegments[position] = results[position - 1] -> _mp_d[0] % base;
+        numberSegments[position] = results[position - 1] -> _mp_d[0] & baseMask;
         for (branches[position] = 0; branches[position] < base; ++branches[position]) {
             if(modTable[numberSegments[position]][branches[position]][0] < branches[position]){
                 continue;
             }
             xSegments[position] = modTable[branches[position]][Y0][0];
-            ySegments[position] = modTable[(numberSegments[position] - branches[position]) % base][X0][0];
-            getSubResult(xSegments[position],ySegments[position], results[position], results[position - 1]);
+            ySegments[position] = modTable[(numberSegments[position] - branches[position]) & baseMask][X0][0];
+            getSubResult(xSegments[position],ySegments[position], results[position], results[position - 1], position);
             setFactor(xSegments[position], position, x);
             setFactor(ySegments[position], position, y);
             if(xSegments[position] == ySegments[position])
@@ -204,38 +205,51 @@ void VB_Iterator::widthSubIterator(int position){
 
 void VB_Iterator::checkResult(int position, mpz_t result)
 {
-    if(mpz_sgn(result)) {
-        if (mpz_divisible_p(targetNumber, x)) {
-            mpz_divexact(temp, targetNumber, x);
-            gmp_printf("X divides N: ");
-            addResult(x, temp);
-            mpz_set_ui(temp, 0);
+    switch(mpz_sgn(result)) {
+        case 0:
+                addResult(x, y);
             return;
-        } else if (mpz_divisible_p(targetNumber, y)) {
-            mpz_divexact(temp, targetNumber, y);
-            gmp_printf("Y divides N");
-            addResult(temp, y);
-            mpz_set_ui(temp, 0);
+        case 1:
+            if( mpz_divisible_p(result, x) )
+            {
+                mpz_divexact(temp, result, x);
+                mpz_mul_2exp(temp, temp, position * base2exp);
+                mpz_add(temp, temp, y);
+                addResult(x, temp);
+                mpz_set_ui(resultContainer, 0);
+                mpz_set_ui(temp, 0);
+                return;
+            }else
+            if( mpz_divisible_p(result, y) )
+            {
+                mpz_divexact(temp, result, y);
+                mpz_mul_2exp(temp, temp, position * base2exp);
+                mpz_add(temp, temp, x);
+                addResult(temp, y);
+                mpz_set_ui(resultContainer, 0);
+                mpz_set_ui(temp, 0);
+                return;
+            }
             return;
-        }
+        case -1:
+            return;
     }
 }
 
 ///Step functions
-void VB_Iterator::setFactor(uint segment, int position, mpz_t factor)
-{
+void VB_Iterator::setFactor(uint segment, int position, mpz_t factor){
     mpz_set_ui(temp, segment);
     mpz_mul_2exp(temp, temp, (position * base2exp));
     mpz_add(factor, factor, temp);
     mpz_set_ui(temp, 0);
 }
 
-void VB_Iterator::getSubResult(uint xSegment, uint ySegment, mpz_t result, mpz_t previousResult)
-{
+void VB_Iterator::getSubResult(uint xSegment, uint ySegment, mpz_t result, mpz_t previousResult, int position){
     /// result = (((previousResult - (xSegment * y + ySegment * x)) >> p) - (xSegment * ySegment)) >> p
+    mpz_set_ui(temp, (xSegment * ySegment));
+    mpz_mul_2exp(temp, temp, base2exp * position);
     mpz_addmul_ui(temp, x, ySegment);
     mpz_addmul_ui(temp, y, xSegment);
-    mpz_add_ui(temp, temp, (xSegment * ySegment) << base2exp);
     mpz_sub(result, previousResult, temp);
     mpz_div_2exp(result, result, base2exp);
     mpz_set_ui(temp, 0);
@@ -246,7 +260,7 @@ void VB_Iterator::resetNode(int position){
     mpz_set(x, temp);
     mpz_and(temp, y, maskList[position]);
     mpz_set(y, temp);
-    mpn_zero(temp->_mp_d, temp->_mp_size);
+    mpz_set_ui(temp, 0);
     mpz_set_ui(results[position], 0);
 }
 
