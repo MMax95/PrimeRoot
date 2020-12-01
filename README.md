@@ -1,2 +1,2 @@
 # PrimeRoot
-A binary tree algorithm for integer factoring
+An 2n-tree algorithm for factoring integers
