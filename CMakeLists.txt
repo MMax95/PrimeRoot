@@ -17,10 +17,12 @@ add_executable(PrimeRoot main.cpp
         include/Memory_Functions.h
         src/Memory_Functions.cpp
         include/Iterator_Functions.h
-        src/Iterator_Functions.cpp include/Global_Containers.h)
+        src/Iterator_Functions.cpp 
+        include/Global_Containers.h
+)
 
 target_link_libraries(${PROJECT_NAME}
-        "/usr/lib/x86_64-linux-gnu/libgmp.a"
-        "/usr/lib/x86_64-linux-gnu/libgmpxx.a"
+        Boost::headers
         OpenMP::OpenMP_CXX
+        /usr/lib/x86_64-linux-gnu/libgmp.so.10.4.1
         )

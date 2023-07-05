@@ -58,7 +58,7 @@ int main(int argc, char* argv[])
             std::cout << cpu_time_used << "seconds for " << mpz_sizeinbase(targetNumber, 2) << "bits " << std::endl;
 
             std::cout << "\n";
-            char charBuffer[1024];
+            char charBuffer[1024] = "";
             strcat(charBuffer, "1");
             std::cout << readResults(&rootNode, charBuffer) << std::endl;
             return 0;
